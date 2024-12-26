@@ -1,0 +1,374 @@
+@import url('https://fonts.cdnfonts.com/css/emotional-rescue-personal-use');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 90%;
+    background: #ffffff;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.overlay {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.box {
+    flex: 1;
+    display: flex;
+    align-items: flex-start; 
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ffffff;
+    position: relative;
+    transition: all 0.5s ease;
+}
+
+.box.left {
+    background-color: #ff7043;
+}
+
+.box.right {
+    background-color: white;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    position: relative;
+    padding-top: 10px; 
+}
+
+.box.right p{
+    color: black;
+    font-family: "Mulish", serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    
+
+}
+.box.right p2{
+    color: black;
+    font-family: "Poppins", serif;
+    font-size: 12px;
+    font-weight: 300;
+    margin-top: 10px;
+    
+
+}
+
+.box.right p3{
+    color: black;
+    font-family: "Rubik", serif;
+    font-size: 30px;
+    font-weight: 500;
+    margin-top: 20px;
+    
+    
+    
+
+}
+
+
+
+
+.logo {
+    max-width: 150px;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    object-fit: contain;
+    margin-bottom: 10px; 
+}
+
+
+/* Styling for text */
+.text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.text.top {
+    top: 25px;
+    background: none;
+    position: absolute;
+    font-family: 'Emotional Rescue Personal Use', sans-serif;
+    font-size: 30px;
+}
+
+.text.bottom {
+    top: 90px;
+    background: none;
+    position: absolute;
+    font-family: "Mulish", serif;
+    font-style: normal;
+    font-size: 14px;
+}
+
+.input-field {
+    position: relative;
+}
+
+
+
+
+
+.input-field input{
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 0 15px;
+    font-family: "Rubik", serif;
+    border: 2px solid #17A0D4;
+    background: transparent;
+    outline: none;
+    margin-top: 20px;
+    
+    margin-bottom: 10px;
+
+    
+    
+
+}
+
+
+
+
+
+.input-field label{
+    font-family: "Rubik", serif;
+    font-size: 10px;
+    position:absolute;
+    top: 55%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #17A0D4;
+    
+    font-size: 16px;
+    pointer-events: none;
+
+}
+
+input:focus ~label{
+    top: 20;
+    left: 15px;
+    font-size: 14px;
+    padding: 0 2px;
+    background:white;
+    transition: 0.3s ease;
+}
+
+.forgot-password {
+   
+    font-size: 0.8rem;
+    color: grey;
+    text-decoration: none;
+    position: absolute;
+    right: 0;
+    bottom: -20px;
+}
+
+.forgot-password:hover{
+    color: #17A0D4;
+    text-decoration: underline;
+}
+
+.login-button {
+    width: 300px;
+    height: 50px;
+    margin-top: 40px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #17A0D4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #0d8abf;
+}
+
+
+.account{
+    display: flex;
+    justify-content: center;
+    width: 300px;
+    
+    margin-top: 20px;
+    height: fit-content;
+    
+    
+}
+
+
+.sign-up-link {
+    color: #17A0D4;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 5px;
+}
+.sign-up-link:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 700px) {
+    .box.left {
+        display: none; 
+    }
+
+    .logo {
+        max-width: 80px; 
+        margin-top: 10px; 
+        transition: all 0.3s ease; 
+    }
+
+    .box.right {
+        padding: 10px;
+        flex: 1 1 100%;
+        padding-top: 10px; 
+    }
+
+    .box.right p{
+        
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    .box.right p2{
+        
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .input-field input{
+        width: 90%;
+        padding: 15px;
+        
+        font-size: 0.9rem;
+    }
+
+    .input-field label{
+        padding: 15px;
+        top: 40;
+        
+    }
+    .forgot-password{
+        position: relative;
+        text-align: center;
+        margin: 10px auto 0 auto;
+    }
+
+    .login-button {
+        width: 100%; 
+        font-size: 0.9rem; 
+        
+    }
+
+    .signup-container {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .no-account {
+        font-size: 0.8rem;
+    }
+
+    .sign-up-link {
+        font-size: 0.9rem;
+    }
+
+    
+   
+}
+
+@media (max-width: 300px) {
+    .input-field input {
+        width: 100%;
+        max-width: 250px; 
+        padding: 8px; 
+        font-size: 14px; 
+    }
+
+    .login-button {
+        width: 100%;
+        max-width: 250px;
+        font-size: 14px; 
+        padding: 10px;
+    }
+
+    .signup-container {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .no-account {
+        font-size: 0.8rem;
+    }
+
+    .sign-up-link {
+        font-size: 0.9rem;
+    }
+
+    .box.right {
+        padding: 10px;
+    }
+
+    .forgot-password {
+        font-size: 0.7rem; 
+        position: relative;
+        text-align: center;
+        margin-top: 10px;
+        padding: 0 10px;
+    }
+   
+}
