@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 body {
@@ -14,7 +15,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-color: white;
 }
 
 .container {
@@ -261,7 +262,8 @@ input:focus ~label{
 
 @media (max-width: 700px) {
     .box.left {
-        display: none; 
+        display: none;
+         
     }
 
     .logo {
@@ -329,46 +331,3 @@ input:focus ~label{
    
 }
 
-@media (max-width: 300px) {
-    .input-field input {
-        width: 100%;
-        max-width: 250px; 
-        padding: 8px; 
-        font-size: 14px; 
-    }
-
-    .login-button {
-        width: 100%;
-        max-width: 250px;
-        font-size: 14px; 
-        padding: 10px;
-    }
-
-    .signup-container {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        padding: 10px;
-    }
-
-    .no-account {
-        font-size: 0.8rem;
-    }
-
-    .sign-up-link {
-        font-size: 0.9rem;
-    }
-
-    .box.right {
-        padding: 10px;
-    }
-
-    .forgot-password {
-        font-size: 0.7rem; 
-        position: relative;
-        text-align: center;
-        margin-top: 10px;
-        padding: 0 10px;
-    }
-   
-}
