@@ -1,0 +1,189 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    height: 50px;
+}
+
+.profile {
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+}
+
+.form {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.image-upload {
+    flex: 1 1 10%;
+    text-align: center;
+    border: 1px dashed #228ad9;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-upload a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.image-upload a:hover {
+    text-decoration: underline;
+}
+
+.form-fields {
+    flex: 1 1 55%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+    margin-bottom: 15px;
+}
+
+.input-group.inline {
+    flex-direction: row;
+    align-items: center;
+    gap: 120px; /* Space between Type and Location */
+}
+
+.input-group.inline .dropdown {
+    flex: 1; /* Equal width for both dropdowns */
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.input, .textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #228ad9;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.dropdown {
+    width: 130%;
+    padding: 10px;
+    border: 1px solid #228ad9;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+/* Textarea specific styles */
+.textarea {
+    resize: none;
+    height: 100px;
+}
+.textarea2 {
+    padding: 40px;
+    border: 1px solid #228ad9;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+/* Dropdown-specific styles */
+.dropdown-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.dropdown {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #555;
+    border: 2px solid #228ad9;
+    border-radius: 5px;
+    background: #fff;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #007BFF 50%),
+      linear-gradient(135deg, #007BFF 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.dropdown:hover {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.dropdown option {
+    padding: 8px;
+    background: #fff;
+    font-size: 14px;
+    color: #555;
+    
+}
+/* Opening hours group */
+.opening-hours {
+    flex: 1 1 100%;
+}
+
+.time-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.time-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border: 1px solid #228ad9;
+    border-radius: 5px;
+    
+}
+
+/* Submit button styles */
+.button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
