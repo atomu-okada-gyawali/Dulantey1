@@ -1,117 +1,108 @@
-/* BlogCard.css */
+/* BlogCard.module.css */
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
-.blog-card {
+
+.blogCard {
     background-color: white;
     border-radius: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     width: 90%;
     height: 350px;
-  }
-  
-  .blog-content {
+}
+
+.blogContent {
     display: flex;
     padding: 1.5rem;
     justify-content: center;
-  }
-  
-  .blog-image {
+}
+
+.blogImage {
     height: 16rem;
     object-fit: cover;
     margin-right: 4rem;
     cursor: pointer;
-  }
-  
-  .blog-details {
+}
+
+.blogDetails {
     flex-grow: 1;
-  }
-  
-  .blog-header {
+}
+
+.blogHeader {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-  }
-  
-  .author-info {
+}
+
+.authorInfo {
     margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 12px;
-  }
-  
-  .author-image {
+}
+
+.authorImage {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
     cursor: pointer;
-  }
-  
-  .author-name-date {
+}
+
+.authorNameDate {
     margin-left: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 30px;
-  }
-  
-  .author-name {
+}
+
+.authorName {
     font-weight: 500;
     font-family: "Mulish", sans-serif;
     color: rgb(111, 111, 111);
-  }
-  
-  .post-date {
+}
+
+.postDate {
     font-size: 0.875rem;
     color: #6b7280;
-  }
-  
-  .blog-actions {
+}
+
+.blogActions {
     display: flex;
     gap: 1rem;
     height: fit-content;
     align-items: center;
     margin-bottom: 9px;
     gap: 0px;
-  }
-  
-  .actionss {
+}
+
+.actions {
     margin-left: 390px;
-  }
-  
-  .action-btn {
+    width: 30%;
+    display: flex;
+    gap: 1rem;
+}
+
+.actionBtn {
     background: none;
     border: none;
     cursor: pointer;
-  }
-  
-  .comment {
-    border: none;
-    background-color: white;
-  }
-  
-  .share {
-    border: none;
-    background-color: white;
-  }
-  
-  .rating i {
-    margin-right: 0.125rem;
-    position: relative;
-    
-  }
-  
-  .flag-btn {
+}
+
+.rating {
+    display: flex;
+}
+
+.flagBtn {
     color: #ef4444;
     border: none;
     background-color: white;
-  }
-  
-  .blog-body {
+}
+
+.blogBody {
     margin-bottom: 1rem;
-  }
-  
-  .location-info {
+}
+
+.locationInfo {
     display: flex;
     align-items: center;
     color: #6b7280;
@@ -119,46 +110,46 @@
     gap: 10px;
     font-family: "Mulish", sans-serif;
     font-weight: 400;
-  }
-  
-  .blog-title {
+}
+
+.blogTitle {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
     font-family: "Mulish", sans-serif;
-  }
-  
-  .blog-description {
+}
+
+.blogDescription {
     color: #4b5563;
     font-family: "Mulish", sans-serif;
     font-size: 14px;
-  }
-  
-  .more-link {
+}
+
+.moreLink {
     color: #17a0d4;
     font-weight: 500;
     text-decoration: none;
     margin-left: 530px;
     font-family: "Inter", sans-serif;
     font-weight: 400;
-  }
-  
-  .comment-area {
+}
+
+.commentArea {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  }
-  
-  .comment-textarea {
+}
+
+.commentTextarea {
     width: 100%;
     height: 100px;
     padding: 0.5rem;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
     font-family: 'Poppins', sans-serif;
-  }
-  
-  .comment-submit-btn {
+}
+
+.commentSubmitBtn {
     align-self: flex-end;
     padding: 0.5rem 1rem;
     background-color: #17a0d4;
@@ -167,61 +158,59 @@
     border-radius: 0.5rem;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
-  }
-  
-  .comment-submit-btn:hover {
+}
+
+.commentSubmitBtn:hover {
     background-color: #10779e;
-  }
-  
-  .submitted-comment {
+}
+
+.submittedComment {
     text-align: start;
     margin-top: 1rem;
     font-family: 'Poppins', sans-serif;
     color: #374151;
-  }
-  
- 
-  @media (max-width: 800px) {
-    .blog-card {
-      flex-direction: column;
-      height: auto;
+}
+
+@media (max-width: 800px) {
+    .blogCard {
+        flex-direction: column;
+        height: auto;
     }
-  
-    .blog-content {
-      flex-direction: column;
-      align-items: center;
+
+    .blogContent {
+        flex-direction: column;
+        align-items: center;
     }
-  
-    .blog-image {
-      width: 100%;
-      height: auto;
-      margin-right: 0;
-      margin-bottom: 1rem;
+
+    .blogImage {
+        width: 100%;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 1rem;
     }
-  
-    .blog-details {
-      width: 100%;
+
+    .blogDetails {
+        width: 100%;
     }
-  
-    .author-name-date {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 5px;
+
+    .authorNameDate {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
     }
-  
-    .blog-actions {
-      justify-content: space-between;
-      width: 100%;
+
+    .blogActions {
+        justify-content: space-between;
+        width: 100%;
     }
-  
-    .actionss {
-      margin-left: 0;
+
+    .actions {
+        margin-left: 0;
     }
-  
-    .more-link {
-      margin-left: 0;
-      text-align: center;
-      width: 100%;
+
+    .moreLink {
+        margin-left: 0;
+        text-align: center;
+        width: 100%;
     }
-  }
-  
+}

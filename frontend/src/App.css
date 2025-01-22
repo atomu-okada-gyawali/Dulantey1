@@ -1,4 +1,5 @@
 
+
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
 .sidebar {
@@ -12,7 +13,7 @@
   
   transition: transform 0.3s ease;
   
-  z-index: 1000; /* Ensure the sidebar is above other elements */
+  z-index: 1000; 
 }
 
 .sidebar.open {
@@ -197,6 +198,12 @@
   padding: 2rem;
 }
 
+.mainContainer{
+  margin-left: 20rem;
+}
+
+
+
 .profile-container {
   display: flex;
   justify-content: flex-end;
@@ -292,14 +299,13 @@
 }
 
 .actionss {
+ 
   margin-left: 390px;
+  
+  
 }
 
-.action-btn {
-  background: none; /* Removes default button styling */
-  border: none; /* Removes border */
-  cursor: pointer; /* Makes the button clickable */
-}
+
 
 .comment {
   border: none;
@@ -358,6 +364,8 @@
   font-weight: 400;
 }
 
+
+
 .burger {
   display: none;
   position: absolute;
@@ -379,11 +387,17 @@
   .sidebar {
     position: absolute;
     transform: translateX(-100%);
+   
   }
   .sidebar.open {
     transform: translateX(0);
   }
+
+ 
   .main-content {
+    margin-left: 0;
+  }
+  .mainContainer{
     margin-left: 0;
   }
   .blog-card {
@@ -429,4 +443,4 @@
     top: 1rem;
     
   }
-}
+} 

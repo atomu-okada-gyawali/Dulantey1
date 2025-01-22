@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import Sidebar from "./components/SideBar"; // Import Sidebar component
-import BlogCard from "./components/BlogCard"; // Import BlogCard component
-import "./BrowsePage.css"; // Global styles if needed
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-
-function App() {
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import BlogCard from './BlogCard';
+import Sidebar from './Sidebar';
+import './BrowsePage.module.css';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+function BrowsePage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -43,40 +43,43 @@ function App() {
   ];
 
   return (
-    <div className="app-container">
-      <div className="burger" onClick={toggleSidebar}>
-        <FontAwesomeIcon icon={faBars} />
+    <div className="browsePage">
+      <div className={`sidebar ${isSidebarOpen ? 'sidebarOpen' : ''}`}>
+        <Sidebar />
       </div>
-
+      {!isSidebarOpen && (
+        <div className="burger" onClick={toggleSidebar}>
+          <FontAwesomeIcon icon={faBars} />
+        </div>
+      )}
       {isSidebarOpen && (
-        <div className="cross" onClick={closeSidebar}>
-          <FontAwesomeIcon icon={faTimes} />
+        <div className="cross" onClick={toggleSidebar}>
+           <FontAwesomeIcon icon={faTimes} />
         </div>
       )}
 
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-
-      {isSidebarOpen && (
-        <div className="overlay open" onClick={closeSidebar}></div>
-      )}
-
-      <main className="main-content">
-        <div className="profile-container">
+      {isSidebarOpen && <div className="overlay open" onClick={closeSidebar}></div>}
+      <div className="mainContainer">
+      <div className="profile-container">
+        <Link to="/profile">
           <img
-            src="./src/assets/profile.png"
+            src="./src/assets/tracyprofile.png"
             alt="Profile"
             className="profile-image"
           />
-        </div>
+        </Link>
+      </div>
 
-        <div className="blogs-list">
-          {blogs.map((blog, index) => (
-            <BlogCard key={index} {...blog} />
-          ))}
-        </div>
-      </main>
+      <div className="blogs-list">
+        {blogs.map((blog, index) => (
+          <BlogCard key={index} {...blog} />
+        ))}
+      </div>
+      </div>
+
     </div>
   );
 }
 
-export default App;
+export default BrowsePage;
