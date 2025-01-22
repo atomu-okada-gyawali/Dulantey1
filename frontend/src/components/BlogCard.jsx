@@ -1,5 +1,9 @@
+
+
+
+
 import React, { useState } from "react";
-import './BlogCard.css';
+import styles from './BlogCard.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFlag, faComment, faShare, faMapMarkerAlt, faStar, faCommentAlt } from '@fortawesome/free-solid-svg-icons';
@@ -43,74 +47,74 @@ function BlogCard({ imgSrc, authorImg, authorName, date, location, title, descri
   };
 
   return (
-    <article className="blog-card">
-      <div className="blog-content">
-        <img src={imgSrc} alt={title} className="blog-image" />
-        <div className="blog-details">
+    <article className={styles.blogCard}>
+      <div className={styles.blogContent}>
+        <img src={imgSrc} alt={title} className={styles.blogImage} />
+        <div className={styles.blogDetails}>
           {isCommenting ? (
-            <div className="comment-area">
+            <div className={styles.commentArea}>
               <textarea
-                className="comment-textarea"
+                className={styles.commentTextarea}
                 placeholder="Write your comment..."
                 value={comment}
                 onChange={handleCommentChange}
               ></textarea>
-              <button className="comment-submit-btn" onClick={handleCommentSubmit}>
+              <button className={styles.commentSubmitBtn} onClick={handleCommentSubmit}>
                 Submit
               </button>
             </div>
           ) : (
             <>
-              <div className="blog-header">
-                <div className="author-info">
-                  <img src={authorImg} alt="Author" className="author-image" />
-                  <div className="author-name-date">
-                    <h3 className="author-name">{authorName}</h3>
-                    <p className="post-date">{date}</p>
+              <div className={styles.blogHeader}>
+                <div className={styles.authorInfo}>
+                  <img src={authorImg} alt="Author" className={styles.authorImage} />
+                  <div className={styles.authorNameDate}>
+                    <h3 className={styles.authorName}>{authorName}</h3>
+                    <p className={styles.postDate}>{date}</p>
                   </div>
                 </div>
-                <div className="blog-actions">
-                  <div className="rating">
+                <div className={styles.blogActions}>
+                  <div className={styles.rating}>
                     {Array(5)
                       .fill(0)
                       .map((_, index) => (
                         <FontAwesomeIcon
-                        key={index}
-                        icon = {faStar}
-                        className={index < rating ? "star filled" : "star"} 
-                        onClick={() => handleRatingClick(index)}
-                        style={{ cursor: 'pointer', color: index < rating ? 'gold' : 'black', margin: '0 1px' }}
-                      />
+                          key={index}
+                          icon={faStar}
+                          className={index < rating ? styles.starFilled : styles.star}
+                          onClick={() => handleRatingClick(index)}
+                          style={{ cursor: 'pointer', color: index < rating ? 'gold' : 'black', margin: '0 1px' }}
+                        />
                       ))}
                   </div>
-                  <div className="actionss">
-                    <button className="action-btn flag-btn">
+                  <div className={styles.actions}>
+                    <button className={styles.actionBtn}>
                       <FontAwesomeIcon icon={faFlag} />
                     </button>
-                    <button className="action-btn comment-btn" onClick={toggleComment}>
-                      <FontAwesomeIcon icon={faComment}/>
+                    <button className={styles.actionBtn} onClick={toggleComment}>
+                      <FontAwesomeIcon icon={faCommentAlt} />
                     </button>
-                    <button className="action-btn share-btn" onClick={handleShareClick}>
+                    <button className={styles.actionBtn} onClick={handleShareClick}>
                       <FontAwesomeIcon icon={faShare} />
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="blog-body">
-                <div className="location-info">
-                  <FontAwesomeIcon icon = {faMapMarkerAlt} />
+              <div className={styles.blogBody}>
+                <div className={styles.locationInfo}>
+                  <FontAwesomeIcon icon={faMapMarkerAlt} />
                   <span>{location}</span>
                 </div>
-                <h2 className="blog-title">{title}</h2>
-                <p className="blog-description">{description}</p>
+                <h2 className={styles.blogTitle}>{title}</h2>
+                <p className={styles.blogDescription}>{description}</p>
               </div>
-              <a href="#" className="more-link">
+              <a href="#" className={styles.moreLink}>
                 More
               </a>
             </>
           )}
           {submittedComment && (
-            <div className="submitted-comment">
+            <div className={styles.submittedComment}>
               <p>{submittedComment}</p>
             </div>
           )}
@@ -121,3 +125,4 @@ function BlogCard({ imgSrc, authorImg, authorName, date, location, title, descri
 }
 
 export default BlogCard;
+

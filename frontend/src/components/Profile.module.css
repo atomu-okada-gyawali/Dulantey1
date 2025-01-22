@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
+
+.sidebar {
+  width: 16rem;
+  background-color: white;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100%;
+
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebarOpen {
+  transform: translateX(0);
+}
+
+.logoContainer {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.logo {
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.9rem;
+}
+
+.nav {
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  gap: 10px;
+  padding: 0.75rem 1rem;
+  color: #374151;
+  background-color: white;
+  border-radius: 0.5rem;
+  transition: background-color 0.5s;
+}
+
+.navItem:hover {
+  background-color: #e9f5fe;
+}
+
+.navText {
+  margin-left: 0.75rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.addBlogBtn {
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.5s;
+}
+
+.addBlogBtn:hover {
+  background-color: #e9f5fe;
+}
+
+.addIcon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.btnText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: 1.125rem;
+}
+
+.categorySelect {
+  margin-top: 1.5rem;
+}
+
+.categoryDropdown {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.logoutBtnContainer {
+  padding: 1rem;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.logoutBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem 1rem;
+  border: none;
+  background-color: #17a0d4;
+  color: white;
+  border-radius: 0.5rem;
+  gap: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+.logoutBtn:hover {
+  background-color: #10779e;
+}
+
+.logoutIcon {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Profile Styling */
+
+.viewPro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.viewProImg {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.details {
+  margin-left: 100px;
+  font-family: 'Mulish', sans-serif;
+}
+
+.detailsP {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.detailsH2 {
+  font-weight: 400;
+  font-size: 26px;
+}
+
+.button {
+  display: flex;
+  align-items: flex-start;
+}
+
+.buttonBtn {
+  padding: 10px;
+  width: 140px;
+  font-family: 'Poppins', sans-serif;
+  background-color: #17a0d4;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.buttonBtn:hover {
+  background-color: #10779e;
+}
+
+.commentArea {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+
+@media (max-width: 800px) {
+  .sidebar {
+    position: absolute;
+    transform: translateX(-100%);
+  }
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .viewPro {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .details {
+    margin-left: 0;
+  }
+}
