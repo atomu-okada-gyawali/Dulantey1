@@ -1,105 +1,108 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
+
 body {
     margin: 0;
+
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     background-color: antiquewhite;
+    
 }
 
+.textInput.error {
+    border-color: red;
+  }
+  
+
+
+
 .container {
+    left: 5rem;
     height: 90%;
-    width: 70%;
+    width: 90%;
     background-color: white;
     display: flex;
     
     border-radius: 10px;
-    transition: all 0.5s ease; 
+    transition: all 0.5s ease;
     position: relative;
 }
 
-.left-side {
+.leftSide {
     display: flex;
     flex-direction: column;
     padding-top: 60px;
-    align-items: flex-start; 
-    padding-left: 60px; 
+    align-items: flex-start;
+    padding-left: 60px;
     flex: 1;
 }
 
-.left-side img {
-    width: 20%; 
+.leftSide img {
+    width: 20%;
     height: auto;
-    border-radius: 8px; 
-    margin-bottom: 20px; 
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
 
-.left-side h2 {
+.leftSide h2 {
     font-family: "Mulish", serif;
     margin: 0;
-
     padding-bottom: 50px;
 }
 
-.small-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    width: 45%;
-    height: 100%;
-    background-color: rgb(12, 163, 205);
-    transition: opacity 0.5s ease, width 0.5s ease;
-    margin-left: auto; 
+.smallDiv {
+
+  /* border: 1px solid black; */
+  width: 55%;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #56b0d0;
+
+
 }
-.inner{
+
+.smallDiv p{
+  font-family: "Lato", sans-serif;
+  color: white;
+  font-size: 25px;
+  margin-top: 5px;
+}
+
+
+
+.inner {
     width: 80%;
     height: 75%;
+
     border-radius: 10px;
     display: flex;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    
-    
 }
 
-.text-input{
+.textInput {
     font-family: "Mulish", serif;
     width: 70%;
     height: 25px;
-    margin-bottom:40px;
-    
-    
+    margin-bottom: 40px;
     border: none;
     border-bottom: 2px solid #D0D5DD;
-    
-    
-    
 }
 
-.inner img{
-    height: 100%;
-    width: 100%;
-}
 
-.inner p{
-    position: absolute;
-    color: white;
-    font-family: "Lato", serif;
-    margin-top: 35px;
-    font-size: 25px;
-    font-weight: 500;
-    
-}
 
-.signup{
+.signupButton {
     height: 35px;
     width: 71%;
     color: white;
-    font-family: "Mulish" ,serif;
+    font-family: "Mulish", serif;
     background-color: #17A0D4;
     border-radius: 10px;
     border: 1px solid #17A0D4;
@@ -108,126 +111,98 @@ body {
     margin-bottom: 25px;
 }
 
-.signup:hover{
+.signup:hover {
     background-color: #1077a0;
 }
 
-.no-account{
+.noAccount {
     font-family: "Mulish", serif;
     font-size: 12px;
     color: grey;
 }
 
-.sign-up-link{
+.signUpLink {
     font-family: "Mulish", serif;
     color: #17A0D4;
     text-decoration: none;
 }
 
-.sign-up-link:hover{
+.signUpLink:hover {
     color: #083ee1;
     text-decoration: underline;
 }
-#dot1{
-    height: 8%;
-    max-width: 10%;
-    position: absolute;
-   top: 35%;
-   left: 8%;
-    transition: all 0.3s ease;
-}
 
-#next{
-    height: 280px;
-    width: 250px;
-    margin-top: 160px;
-    position: absolute;
-    transition: all 0.3s ease;
+.smallDiv img{
+  width: 80%;
+  margin-top: 10px;
+  height: 70%;
 }
 
 
 
 
 
-
-
-
-
-@media(max-width:800px){
-    .inner{
-        text-align: center;
-        padding: 20px;
-        
-        
+@media (max-width: 800px) {
+    .smallDiv{
+      display: none;
     }
-    .inner p{
-        font-size: 16px;
-        padding: 20px;
-        transition: 0.7s ease;
-
+    .container{
+      left: 3rem;
+      width: 100%;
+      justify-content: center;
+      display: flex;
+      padding: 10px;
     }
 
-    #dot1 {
-        max-width: 10%; 
-        max-height: 5%;
-        top: 35%;
-        left: 15%;
-    }
-
-    #next {
-        max-width: 55%; 
-        max-height: 50%;
-        bottom: 15%;
-        right: 20%;
-    }
-   
-}
-
-
-
-
-@media (max-width: 600px) {
 
     
-    .small-div {
-        opacity: 0; 
-        width: 0; 
+
+
+   
+
+   
+
+  
+}
+
+@media (max-width: 600px) {
+    .smallDiv {
+        opacity: 0;
+        width: 0;
         pointer-events: none;
     }
 
     .container {
+      left: 1rem;
         height: 90%;
         overflow: hidden;
         padding: 10px;
-        width: 90%; 
+        width: 90%;
         flex-direction: column;
-        align-items: center; 
+        align-items: center;
     }
 
-    .left-side {
-        align-items: center; 
-        padding-left: 0; 
+    .leftSide {
+        align-items: center;
+        padding: 0;
     }
 
-    .left-side img {
+    .leftSide img {
         padding: 5px 10px;
-        width: 30%; 
+        width: 30%;
     }
 
-    .left-side h2 {
-        text-align: center; 
+    .leftSide h2 {
+        text-align: center;
     }
 
-    .text-input{
+    .textInput {
         width: 200px;
-        
-        
     }
-    .inner{
+
+    .inner {
         text-align: center;
         padding: 20px;
         overflow: hidden;
     }
-
-    
 }
