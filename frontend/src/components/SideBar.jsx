@@ -1,6 +1,6 @@
 import React from "react";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import './Sidebar.css';
+// import './Sidebar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faNewspaper } from '@fortawesome/free-solid-svg-icons';
 function Sidebar({ isOpen }) {
