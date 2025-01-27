@@ -8,7 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: antiquewhite;
+    background-color: rgb(240, 240, 240);
     
 }
 
@@ -20,15 +20,17 @@ body {
 
 
 .container {
-    left: 5rem;
-    height: 90%;
-    width: 90%;
+    
+    left: 13rem;
+    height: 80%;
+    width: 70%;
     background-color: white;
     display: flex;
+    position: relative;
     
     border-radius: 10px;
     transition: all 0.5s ease;
-    position: relative;
+    
 }
 
 .leftSide {
@@ -138,6 +140,24 @@ body {
   height: 70%;
 }
 
+.errorInput{
+    border: 1px solid red;
+    border-radius: 4px;
+}
+.errorMessage{
+    position: absolute;
+    color: red;
+    font-size: 0.8rem;
+    margin-top: -25px;
+   
+    font-family: "Mulish", sans-serif;
+    
+}
+
+.noAccount{
+    margin-bottom: 20px;
+}
+
 
 
 
@@ -176,19 +196,29 @@ body {
       left: 1rem;
         height: 90%;
         overflow: hidden;
-        padding: 10px;
+        
+        
+    
+        
         width: 90%;
         flex-direction: column;
         align-items: center;
+        
     }
 
     .leftSide {
-        align-items: center;
-        padding: 0;
+        
+        
+        display: flex;
+      
+        
     }
 
     .leftSide img {
-        padding: 5px 10px;
+        align-self: center;
+        position: relative;
+        left: -2rem;
+    
         width: 30%;
     }
 

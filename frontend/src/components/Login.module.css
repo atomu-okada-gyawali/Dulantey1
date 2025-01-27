@@ -65,6 +65,7 @@ body {
     justify-content: flex-start;
     position: relative;
     padding-top: 10px;
+    /* height: 100%; */
 }
 
 .right p {
@@ -131,6 +132,7 @@ body {
 
 .inputField {
     position: relative;
+    height: 70px;
 }
 
 .inputField input {
@@ -171,6 +173,18 @@ input:focus ~ label {
 }
 
 
+.inputField .errorMessage{
+    margin-top: -10px;
+    color: red;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    
+}
+
+.inputField .errorInput {
+    border: 1px solid red;
+}
+
 
 .forgotPassword {
     font-size: 0.8rem;
@@ -179,7 +193,8 @@ input:focus ~ label {
     position: absolute;
     right: 0;
     font-weight: 500;
-    bottom: -20px;
+    bottom: -40px;
+    
 }
 
 .forgotPassword:hover {
@@ -190,7 +205,7 @@ input:focus ~ label {
 .loginButton {
     width: 300px;
     height: 50px;
-    margin-top: 40px;
+    margin-top: 60px;
     font-size: 16px;
     margin-bottom: 20px;
     font-family: 'Poppins', sans-serif;
@@ -230,6 +245,9 @@ input:focus ~ label {
 .signUpLink:hover {
     text-decoration: underline;
 }
+
+
+
 
 @media (max-width: 700px) {
 
