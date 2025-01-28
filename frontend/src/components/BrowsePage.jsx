@@ -1,22 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import BlogCard from './BlogCard';
-import Sidebar from './Sidebar';
-import './BrowsePage.module.css';
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Sidebar from './SideBar';
+
+import styles from './BrowsePage.module.css'; // Importing the CSS module
+
 function BrowsePage() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const closeSidebar = () => {
-    setIsSidebarOpen(false);
-  };
-
   const blogs = [
     {
       imgSrc: "./src/assets/baudha.png",
@@ -43,41 +32,25 @@ function BrowsePage() {
   ];
 
   return (
-    <div className="browsePage">
-      <div className={`sidebar ${isSidebarOpen ? 'sidebarOpen' : ''}`}>
-        <Sidebar />
-      </div>
-      {!isSidebarOpen && (
-        <div className="burger" onClick={toggleSidebar}>
-          <FontAwesomeIcon icon={faBars} />
+    <div className={styles.browsePage}>
+      <Sidebar />
+      <div className={styles.mainContainer}>
+        <div className={styles.profileContainer}>
+          <Link to="/profile">
+            <img
+              src="./src/assets/tracyprofile.png"
+              alt="Profile"
+              className={styles.profileImage}
+            />
+          </Link>
         </div>
-      )}
-      {isSidebarOpen && (
-        <div className="cross" onClick={toggleSidebar}>
-           <FontAwesomeIcon icon={faTimes} />
+
+        <div className={styles.blogsList}>
+          {blogs.map((blog, index) => (
+            <BlogCard key={index} {...blog} />
+          ))}
         </div>
-      )}
-
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      {isSidebarOpen && <div className="overlay open" onClick={closeSidebar}></div>}
-      <div className="mainContainer">
-      <div className="profile-container">
-        <Link to="/profile">
-          <img
-            src="./src/assets/tracyprofile.png"
-            alt="Profile"
-            className="profile-image"
-          />
-        </Link>
       </div>
-
-      <div className="blogs-list">
-        {blogs.map((blog, index) => (
-          <BlogCard key={index} {...blog} />
-        ))}
-      </div>
-      </div>
-
     </div>
   );
 }

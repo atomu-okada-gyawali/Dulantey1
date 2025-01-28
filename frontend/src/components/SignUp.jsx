@@ -1,0 +1,75 @@
+import React from "react";
+import { useForm } from "react-hook-form";
+import styles from "./SignUp.module.css";
+import logo from "../assets/immmg.jpg";
+
+function SignUp() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const onSubmit = (data) => {
+    console.log("Submitted Data:",data);
+    
+  };
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.leftSide}>
+        <img src={logo} alt="log" />
+        <h2>Create Account</h2>
+
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <div className={styles.inputGroup}>
+          <input
+            type="text"
+            placeholder="Email Address"
+            className={`${styles.textInput} ${errors.email ? styles.errorInput : ""}`}
+            {...register("email", { required: "Email is required", pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" } })}
+            aria-invalid={errors.email ? "true" : "false"}
+          />
+          {errors.email && <p className = {styles.errorMessage}> {errors.email.message}</p>}
+          </div>
+
+          <input
+            type="text"
+            placeholder="Full Name"
+            className={`${styles.textInput} ${errors.fullname ? styles.errorInput : ""}`}
+            {...register("fullname", { required: "Full Name is required" })}
+            aria-invalid={errors.fullname ? "true" : "false"}
+          />
+          {errors.fullname && <p className = {styles.errorMessage}>{errors.fullname.message}</p>}
+
+          <input
+            type="text"
+            placeholder="Username"
+            className={`${styles.textInput} ${errors.username ? styles.errorInput : ""}`}
+            {...register("username", { required: "Username is required" })}
+            aria-invalid={errors.username ? "true" : "false"}
+          />
+          {errors.username && <p className = {styles.errorMessage}>{errors.username.message}</p>}
+
+          <input
+            type="password"
+            placeholder="Password"
+            className={`${styles.textInput} ${errors.password ? styles.errorInput : ""}`}
+            {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters" } })}
+            aria-invalid={errors.password ? "true" : "false"}
+          />
+          {errors.password && <p className = {styles.errorMessage}>{errors.password.message}</p>}
+
+          <button type="submit" className={styles.signupButton}>Create Account</button>
+        </form>
+
+        <p className={styles.noAccount}>
+          Already have an account? <a href="#" className={styles.signUpLink}>Log in</a>
+        </p>
+      </div>
+
+      <div className={styles.smallDiv}>
+        <p>Start your journey by  <br />one click, explore <br />beautiful world!</p>
+        <img src="./src/assets/rightImg.png" alt="right" />
+      </div>
+    </div>
+  );
+}
+
+export default SignUp;

@@ -3,12 +3,16 @@
 
 import React from 'react';
 import styles from './Profile.module.css';
+import SideBar from './SideBar';
 
 
 function Profile() {
 
  
   return (
+
+    <div className="main">
+      <SideBar/>
     
     <div className={styles.viewPro}>
       <img
@@ -26,6 +30,7 @@ function Profile() {
       <div className={styles.button}>
         <button className={styles.buttonBtn}>Edit Profile</button>
       </div>
+    </div>
     </div>
     
   );
