@@ -8,7 +8,6 @@ db.sequelize = sequelize;
 db.User = User;
 db.Blog = Blog; // Add Blog model
 db.Review = Review; // Add Review model
-
 // Sync database
 db.sequelize.sync({ alter: true }) // Use { force: true } for development (drops & re-creates tables)
   .then(() => console.log("✅ Database synchronized"))
