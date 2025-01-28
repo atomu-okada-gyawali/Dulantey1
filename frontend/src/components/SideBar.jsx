@@ -1,5 +1,4 @@
 
-
 import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import styles from "./SideBar.module.css"; 
@@ -12,6 +11,7 @@ function SideBar() {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
 
   return (
     <div className={styles.container}>
