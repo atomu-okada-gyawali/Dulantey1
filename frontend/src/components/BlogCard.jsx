@@ -1,7 +1,3 @@
-
-
-
-
 import React, { useState } from "react";
 import styles from './BlogCard.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
