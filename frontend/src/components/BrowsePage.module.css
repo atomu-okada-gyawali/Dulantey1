@@ -1,11 +1,11 @@
 .browsePage {
 
-  
   padding: 1rem;
   font-family: 'Poppins', sans-serif;
 }
 
 .mainContainer {
+  height:100vh;
   position:relative;
   margin-left: 16rem; 
   width: calc(100% - 16rem);
