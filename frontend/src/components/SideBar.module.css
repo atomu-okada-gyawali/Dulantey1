@@ -1,16 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+.container {
+  position: relative;
+}
+
 .sidebar {
     width: 16rem;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
     background-color: white;
-    border-right: 1px solid #e5e7eb;
     display: flex;
     flex-direction: column;
-    position: fixed;
-    top: 0; /* Ensure the sidebar starts from the top */
-    height: 100%;
-    transition: transform 0.3s ease;
+    box-shadow: 1px 0 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     z-index: 1000;
 }
 
@@ -18,20 +29,51 @@
     transform: translateX(0);
 }
 
-.nav,
-.navItem,
-.navText {
-    text-decoration: none;
+.sidebarClose {
+    transform: translateX(-100%);
+}
+
+.toggleButton {
+    position: fixed;
+    left: 0;
+    top: 1rem;
+    z-index: 999;
+    background: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.closeButton {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: #666;
+    display: none;
+}
+
+.toggleButton:hover,
+.closeButton:hover {
+    opacity: 0.8;
 }
 
 .logoContainer {
     padding: 1.5rem;
     text-align: center;
+    border-bottom: 1px solid #f3f4f6;
 }
 
 .logoContainer img {
-    height: 100%;
+    height: auto;
     width: 70%;
+    max-width: 150px;
 }
 
 .logo {
@@ -40,35 +82,43 @@
     margin-bottom: 0.90rem;
 }
 
-.toggleButton{
-    display: none;
-    border: none;
-}
-
 .nav {
-    flex-grow: 1;
-    padding: 1rem;
+    flex: 1;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .navItem {
     display: flex;
     align-items: center;
-    margin: 5px;
-    gap: 10px;
     padding: 0.75rem 1rem;
     color: #374151;
-    background-color: white;
+    text-decoration: none;
     border-radius: 0.5rem;
-    transition: background-color 0.5s;
+    transition: all 0.2s ease;
 }
 
 .navItem:hover {
     background-color: #e9f5fe;
+    color: #2563eb;
+}
+
+.navItem.active {
+    background-color: #e9f5fe;
+    color: #2563eb;
+    font-weight: 500;
+}
+
+.navItem.active svg {
+    color: #2563eb;
 }
 
 .navText {
     margin-left: 0.75rem;
     font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
 }
 
 .addBlogBtn {
@@ -83,16 +133,20 @@
     color: black;
     border: none;
     border-radius: 0.5rem;
-    transition: background-color 0.5s;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .addBlogBtn:hover {
     background-color: #e9f5fe;
+    color: #000000;
 }
 
 .addIcon {
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .btnText {
@@ -117,6 +171,9 @@
 
 .logoutBtnContainer {
     padding: 1rem;
+    margin-top: 180px;
+    position: relative;
+    margin-bottom: 40px;
 }
 
 .logoutBtn {
@@ -132,11 +189,6 @@
     gap: 5px;
     cursor: pointer;
     transition: background-color 0.5s;
-}
-
-.logoutBtnContainer {
-    position: relative;
-    margin-bottom: 40px;
 }
 
 .logoutBtn span {
@@ -168,30 +220,39 @@
     right: 1rem;
 }
 
-@media (max-width: 800px) {
-    .toggleButton{
-        display: block;
-    }
+@media (max-width: 768px) {
     .sidebar {
-        position: absolute;
         transform: translateX(-100%);
     }
-
+    
     .sidebarOpen {
         transform: translateX(0);
     }
+}
 
-    .mainContent {
-        margin-left: 0;
+@media (max-width: 800px) {
+    .sidebar {
+        width: 100%;
+        max-width: 300px;
     }
 
-    .burger {
+    .toggleButton {
         display: block;
     }
 
-    .cross {
+    .closeButton {
         display: block;
-        position: absolute;
-        top: 1rem;
+    }
+
+    .sidebarClose {
+        box-shadow: none;
+    }
+
+    .sidebarOpen {
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .logoContainer {
+        padding-top: 3.5rem;
     }
 }
