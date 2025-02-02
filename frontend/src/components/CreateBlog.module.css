@@ -1,4 +1,5 @@
-/* CreateBlog.module.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200..1000&display=swap');
 
 :global {
   * {
@@ -8,57 +9,70 @@
   }
 }
 
-.body {
-  font-family: Arial, sans-serif;
+.pageContainer {
+  display: flex;
+  min-height: 100vh;
   background-color: #ffffff;
-  padding: 20px;
+}
+
+.mainContent {
+  flex: 1;
+  margin-left: 16rem; 
+  padding: 2rem;
+  background-color: #ffffff;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
 }
 
-.logo {
-  height: 100px;
-  margin-left: 30px;
+.headerTitle {
+  font-family: 'Mulish', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #333;
 }
 
 .profile {
   height: 40px;
+  width: 40px;
   border-radius: 50%;
   cursor: pointer;
 }
 
+.container {
+  padding: 0 1rem;
+}
+
 .form {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  font-family: "Mulish", serif;
+  gap: 2rem;
+  font-family: "Mulish", sans-serif;
 }
 
 .imageUpload {
-  flex: 1 1 6%;
+  flex: 0 0 300px;
   text-align: center;
   border: 2px dashed #dae0e5;
   border-radius: 10px;
-  padding: 20px;
+  padding: 2rem;
   background-color: #ffffff;
-  height: 260px;
-  width: 200px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 13px;
+  font-size: 0.9rem;
 }
 
 .imageUpload img {
   width: 50px;
   height: 50px;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 }
 
 .imageUpload a {
@@ -72,198 +86,102 @@
 }
 
 .formFields {
-  flex: 1 1 55%;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.5rem;
 }
 
 .inputGroup {
   display: flex;
   flex-direction: column;
-  flex: 1 1 100%;
-  margin-bottom: 15px;
-  font-family: "Mulish", serif;
+  gap: 0.5rem;
 }
 
-.inputGroup input {
-  font-family: "Mulish", serif;
+.inputGroup label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.input, .textarea2, .dropdown {
   width: 100%;
-  padding: 10px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #dae0e5;
+  border-radius: 8px;
+  font-family: "Mulish", sans-serif;
+  font-size: 0.95rem;
+}
+
+.textarea2 {
+  min-height: 100px;
+  resize: vertical;
 }
 
 .inputGroup.inline {
   flex-direction: row;
-  align-items: center;
-  gap: 120px;
+  gap: 2rem;
 }
 
-.inputGroup.inline .dropdown {
+.inputGroup.inline > div {
   flex: 1;
-}
-
-.label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.input,
-.textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #17a0d4;
-  border-radius: 6px;
-  font-size: 16px;
-}
-
-.dropdown {
-  width: 130%;
-  padding: 10px;
-  border: 1px solid #17a0d4;
-  border-radius: 6px;
-  font-size: 16px;
-  background: #fff;
-  appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, #007bff 50%),
-    linear-gradient(135deg, #17a0d4 50%, transparent 50%);
-  background-position: calc(100% - 20px) calc(1em + 2px),
-    calc(100% - 15px) calc(1em + 2px);
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}
-
-.dropdown:hover {
-  border-color: #007bff;
-}
-
-.dropdown option {
-  padding: 8px;
-  background: #fff;
-  font-size: 14px;
-  color: #555;
-}
-
-.textarea {
-  resize: none;
-  height: 100px;
-}
-
-.textarea2 {
-  padding: 40px;
-  border: 1px solid #17a0d4;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  font-size: 16px;
-}
-
-.dropdownLabel {
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 5px;
-}
-
-.openingHours {
-  flex: 1 1 100%;
-  margin-bottom: 20px;
 }
 
 .timeInputs {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 1rem;
 }
 
 .timeInput {
   flex: 1;
-  padding: 10px;
-  border: 1px solid #17a0d4;
-  border-radius: 5px;
+  padding: 0.75rem;
+  border: 1px solid #dae0e5;
+  border-radius: 8px;
+  font-family: "Mulish", sans-serif;
 }
 
-.button {
+.buttonGroup {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submitButton {
   background-color: #17a0d4;
-  color: #fff;
+  color: white;
   border: none;
-  padding: 15px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.button:hover {
-  background-color: #0056b3;
-}
-
-.post button {
-  margin-top: 20px;
-  width: 100%;
-  justify-content: center;
-  font-family: "Mulish", serif;
-  font-size: 18px;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  font-family: "Mulish", sans-serif;
   font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-@media (max-width: 800px) {
-  .header {
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-  }
+.submitButton:hover {
+  background-color: #1493c4;
+}
 
-  .logo {
-    height: 50px;
-    margin-left: 0;
-  }
-
-  .profile {
-    height: 35px;
-  }
-
+@media (max-width: 1024px) {
   .form {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
   }
 
   .imageUpload {
-    width: 100%;
-    max-width: 300px;
+    flex: 0 0 200px;
   }
+}
 
-  .formFields {
-    width: 100%;
-    max-width: 400px;
+@media (max-width: 768px) {
+  .mainContent {
+    margin-left: 0;
+    padding: 1rem;
   }
 
   .inputGroup.inline {
     flex-direction: column;
-    gap: 20px;
-  }
-
-  .dropdown {
-    width: 120%;
-  }
-
-  .button {
-    width: 100%;
-    max-width: 300px;
-  }
-
-  .timeInputs {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .timeInput {
-    width: 100%;
-  }
-
-  .post {
-    justify-content: center;
+    gap: 1.5rem;
   }
 }

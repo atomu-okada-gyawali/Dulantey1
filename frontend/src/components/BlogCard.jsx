@@ -1,17 +1,44 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import styles from './BlogCard.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFlag, faComment, faShare, faMapMarkerAlt, faStar, faCommentAlt } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faFlag, 
+  faShare, 
+  faMapMarkerAlt, 
+  faStar, 
+  faCommentAlt,
+  faEllipsisV,
+  faPencilAlt,
+  faTrash
+} from '@fortawesome/free-solid-svg-icons';
 
-function BlogCard({ imgSrc, authorImg, authorName, date, location, title, description, initialRating }) {
+function BlogCard({ 
+  imgSrc, 
+  authorImg, 
+  authorName, 
+  date, 
+  location, 
+  title, 
+  description, 
+  initialRating,
+  isOwnBlog,
+  onUpdate,
+  onDelete 
+}) {
   const [isCommenting, setIsCommenting] = useState(false);
   const [comment, setComment] = useState("");
   const [submittedComment, setSubmittedComment] = useState("");
   const [rating, setRating] = useState(initialRating);
+  const [showMenu, setShowMenu] = useState(false);
 
   const toggleComment = () => {
     setIsCommenting(!isCommenting);
+  };
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
   };
 
   const handleCommentChange = (e) => {
@@ -42,6 +69,16 @@ function BlogCard({ imgSrc, authorImg, authorName, date, location, title, descri
     }
   };
 
+  const handleUpdate = () => {
+    onUpdate && onUpdate();
+    setShowMenu(false);
+  };
+
+  const handleDelete = () => {
+    onDelete && onDelete();
+    setShowMenu(false);
+  };
+
   return (
     <article className={styles.blogCard}>
       <div className={styles.blogContent}>
@@ -63,13 +100,34 @@ function BlogCard({ imgSrc, authorImg, authorName, date, location, title, descri
             <>
               <div className={styles.blogHeader}>
                 <div className={styles.authorInfo}>
-                  <img src={authorImg} alt="Author" className={styles.authorImage} />
+                  <Link to="/profile">
+                    <img src={authorImg} alt="Author" className={styles.authorImage} />
+                  </Link>
                   <div className={styles.authorNameDate}>
-                    <h3 className={styles.authorName}>{authorName}</h3>
+                    <Link to="/profile" className={styles.authorNameLink}>
+                      <h3 className={styles.authorName}>{authorName}</h3>
+                    </Link>
                     <p className={styles.postDate}>{date}</p>
                   </div>
                 </div>
                 <div className={styles.blogActions}>
+                  {isOwnBlog && (
+                    <div className={styles.menuContainer}>
+                      <button className={styles.menuBtn} onClick={toggleMenu}>
+                        <FontAwesomeIcon icon={faEllipsisV} />
+                      </button>
+                      {showMenu && (
+                        <div className={styles.dropdownMenu}>
+                          <button onClick={handleUpdate}>
+                            <FontAwesomeIcon icon={faPencilAlt} /> Update
+                          </button>
+                          <button onClick={handleDelete}>
+                            <FontAwesomeIcon icon={faTrash} /> Delete
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
                   <div className={styles.rating}>
                     {Array(5)
                       .fill(0)
@@ -107,12 +165,12 @@ function BlogCard({ imgSrc, authorImg, authorName, date, location, title, descri
               <a href="#" className={styles.moreLink}>
                 More
               </a>
+              {submittedComment && (
+                <div className={styles.submittedComment}>
+                  <p>{submittedComment}</p>
+                </div>
+              )}
             </>
-          )}
-          {submittedComment && (
-            <div className={styles.submittedComment}>
-              <p>{submittedComment}</p>
-            </div>
           )}
         </div>
       </div>
@@ -121,4 +179,3 @@ function BlogCard({ imgSrc, authorImg, authorName, date, location, title, descri
 }
 
 export default BlogCard;
-

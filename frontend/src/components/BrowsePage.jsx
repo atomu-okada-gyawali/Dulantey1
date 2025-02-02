@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import BlogCard from './BlogCard';
 import Sidebar from './SideBar';
-import styles from './BrowsePage.module.css'; // Importing the CSS module
+import styles from './BrowsePage.module.css'; 
 function BrowsePage() {
   const blogs = [
     {
