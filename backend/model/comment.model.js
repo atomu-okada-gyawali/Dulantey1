@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database.js";
 import User from "./user.model.js"; // Import User model for association
-import Blog from "./user.blog.js"; // Import Blog model for association
+import Blog from "./blog.model.js"; // Import Blog model for association
 class Comment extends Model {}
 
 Comment.init(
@@ -13,7 +13,7 @@ Comment.init(
     },
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: "user",
         key: "id",
@@ -22,7 +22,7 @@ Comment.init(
     },
     blog_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: "blog",
         key: "id",
@@ -37,7 +37,7 @@ Comment.init(
     sequelize,
     modelName: "comment",
     tableName: "comment",
-    timestamps: false, // Set to true if you want `createdAt` & `updatedAt`
+    timestamps: true, // Set to true if you want `createdAt` & `updatedAt`
   }
 );
 

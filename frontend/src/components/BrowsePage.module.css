@@ -1,7 +1,9 @@
 .browsePage {
+
   display: flex;
   min-height: 100vh;
   background-color: white;
+
   font-family: 'Poppins', sans-serif;
 }
 
@@ -13,6 +15,7 @@ body{
   flex: 1;
   margin-left: 16rem;
   padding: 1.5rem;
+
   display: flex;
   flex-direction: column;
   min-height: 100vh;
