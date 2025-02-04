@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../database.js"; // Ensure you have a Sequelize instance
+import sequelize from "../database.js";
 class User extends Model {}
 
 User.init(
@@ -11,12 +11,17 @@ User.init(
     },
     full_name: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      unique: false,
     },
     email: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      unique: true,
+      unique: false,
     },
     username: {
       type: DataTypes.STRING(255),
@@ -33,7 +38,7 @@ User.init(
     sequelize,
     modelName: "User",
     tableName: "user",
-    timestamps: false, // Set to true if you have `createdAt` and `updatedAt`
+    timestamps: true, // Set to true if you have `createdAt` and `updatedAt`
   }
 );
 export default User;

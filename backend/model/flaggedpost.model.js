@@ -19,7 +19,7 @@ FlaggedPost.init(
     sequelize,
     modelName: "FlaggedPost",
     tableName: "FlaggedPost",
-    timestamps: false, // Set to true if you want `createdAt` & `updatedAt`
+    timestamps: true, // Set to true if you want `createdAt` & `updatedAt`
   }
 );
 FlaggedPost.belongsTo(Blog, { foreignKey: "blog_id" });

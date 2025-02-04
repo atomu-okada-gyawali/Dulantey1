@@ -1,7 +1,7 @@
 import Blog from "../model/blog.model.js";
 
 const blogController = {
-  //create
+
   create: async (req, res) => {
     try {
       const { title, photo, desc, location, user_id, categories_id } = req.body;
@@ -87,6 +87,9 @@ const blogController = {
       return res.status(500).json({ error: "Error fetching blog" }); // Send error response
     }
   }
+};
+
+
 };
 
 export default blogController;

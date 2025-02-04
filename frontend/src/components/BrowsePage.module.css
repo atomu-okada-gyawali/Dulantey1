@@ -1,31 +1,24 @@
 .browsePage {
 
-  
-  padding: 1rem;
+  display: flex;
+  min-height: 100vh;
+  background-color: white;
+
   font-family: 'Poppins', sans-serif;
 }
 
-.mainContainer {
-  position:relative;
-  margin-left: 16rem; 
-  width: calc(100% - 16rem);
-  padding: 2rem; 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+body{
+  background-color: white;
 }
 
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -100%;
-  width: 75%;
-  max-width: 20rem;
-  height: 100%;
-  background-color: #fff;
-  transition: left 0.3s ease;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+.mainContainer {
+  flex: 1;
+  margin-left: 16rem;
+  padding: 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .sidebarOpen {
@@ -51,7 +44,10 @@
 }
 
 .profileContainer {
-  width: 100%;
+  position: fixed;
+  top: 1rem;
+  right: 2rem;
+  z-index: 100;
   display: flex;
   justify-content: flex-end;
   padding: 1rem;
@@ -62,15 +58,22 @@
   height: 2.5rem;
   border-radius: 50%;
   cursor: pointer;
+  border: 2px solid #e5e7eb;
+  transition: transform 0.2s;
+}
+
+.profileImage:hover {
+  transform: scale(1.05);
 }
 
 .blogsList {
   max-width: 72rem;
-  margin: 2rem auto;
+  margin: 4rem auto 2rem auto;
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding: 0 1rem;
+  width: 100%;
 }
 
 .blogCard {
@@ -126,11 +129,22 @@
   z-index: 1100;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   .mainContainer {
-    width: 100%;
     margin-left: 0;
+    padding: 1rem;
   }
+  
+  .profileContainer {
+    right: 1rem;
+  }
+  
+  .blogsList {
+    margin-top: 3rem;
+  }
+}
+
+@media (max-width: 800px) {
   .burger {
     display: block;
   }

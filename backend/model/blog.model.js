@@ -4,7 +4,7 @@
 // //getShareCount()
 // //setShareCount()
 // //setAvgReview()
-// //setAvgReview()
+
 // //deleteBlog()
 // //flagBlog()
 import { DataTypes, Model } from "sequelize";
@@ -24,7 +24,7 @@ Blog.init(
     },
     title: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: false,
     },
     photos: {
       type: DataTypes.BLOB("long"), // `BYTEA` maps to BLOB
@@ -32,7 +32,7 @@ Blog.init(
     },
     description: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: false,
     },
 
     shares_count: {
@@ -41,7 +41,7 @@ Blog.init(
     },
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: "user",
         key: "id",
@@ -50,7 +50,7 @@ Blog.init(
     },
     categories_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: "categories",
         key: "id",
@@ -59,19 +59,31 @@ Blog.init(
     },
     location_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: "location",
         key: "id",
       },
       onDelete: "CASCADE",
     },
+    address: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    open_time: {
+      type: DataTypes.TIME,
+      allowNull: false,
+    },
+    close_time: {
+      type: DataTypes.TIME,
+      allowNull: false,
+    },
   },
   {
     sequelize,
     modelName: "Blog",
     tableName: "blog",
-    timestamps: false, // Set to true if you want `createdAt` & `updatedAt`
+    timestamps: true, // Set to true if you want `createdAt` & `updatedAt`
   }
 );
 
