@@ -1,13 +1,11 @@
 .browsePage {
-
   display: flex;
   min-height: 100vh;
   background-color: white;
-
   font-family: 'Poppins', sans-serif;
 }
 
-body{
+body {
   background-color: white;
 }
 
@@ -15,7 +13,6 @@ body{
   flex: 1;
   margin-left: 16rem;
   padding: 1.5rem;
-
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -129,18 +126,40 @@ body{
   z-index: 1100;
 }
 
+.loadMoreButton, .loadLessButton {
+  background-color: #31aada;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+
+.loadMoreButton:hover, .loadLessButton:hover {
+  background-color: #0966a9;
+}
+
+/* Optional styling for buttons when hidden */
 @media (max-width: 768px) {
   .mainContainer {
     margin-left: 0;
     padding: 1rem;
   }
-  
+
   .profileContainer {
     right: 1rem;
   }
-  
+
   .blogsList {
     margin-top: 3rem;
+  }
+
+  /* Ensure buttons are accessible on smaller screens */
+  .loadMoreButton, .loadLessButton {
+    width: 100%;
+    margin-top: 1rem;
   }
 }
 
