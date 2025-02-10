@@ -15,7 +15,7 @@ db.Location = Location; // Add Location model
 
 const syncDatabase = async () => {
   try {
-    await db.sequelize.sync({ force: true }); // Use { force: true } for development (drops & re-creates tables)
+    await db.sequelize.sync({ alter: true }); // Use { force: true } for development (drops & re-creates tables)
     console.log("✅ Database tables created or updated successfully");
   } catch (err) {
     console.error("❌ Error syncing database:", err);

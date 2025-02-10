@@ -1,12 +1,7 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-=======
-
-import React, { useState } from "react";
->>>>>>> c23ca70913919cd35b6b995fbd3c12412b8f4082
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import styles from "./SideBar.module.css"; 
+import styles from "./SideBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faNewspaper, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,22 +16,19 @@ function SideBar() {
       setIsOpen(width > 800);
     };
 
-  
+
     window.addEventListener('resize', handleResize);
 
-  
+
     return () => window.removeEventListener('resize', handleResize);
-  }, []); 
+  }, []);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
-<<<<<<< HEAD
- 
+
   const isOnBlogsPage = true;
-=======
->>>>>>> c23ca70913919cd35b6b995fbd3c12412b8f4082
 
   return (
     <div className={styles.container}>

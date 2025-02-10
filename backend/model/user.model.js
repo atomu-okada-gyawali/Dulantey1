@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database.js";
-class User extends Model {}
+class User extends Model { }
 
 User.init(
   {
@@ -30,7 +30,7 @@ User.init(
     },
 
     profile: {
-      type: DataTypes.BLOB("long"), // `BYTEA` maps to BLOB
+      type: DataTypes.STRING, // `BYTEA` maps to BLOB
       allowNull: true,
     },
   },
