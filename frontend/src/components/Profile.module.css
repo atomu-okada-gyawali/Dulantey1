@@ -252,6 +252,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   margin-bottom: 2rem;
+  
 }
 
 .imagePreviewContainer {
@@ -259,23 +260,20 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  
 }
 
 .imagePreview {
   width: 100%;
   height: 150px;
+  
   object-fit: cover;
   border-radius: 8px;
   border: 2px solid #eee;
+
 }
 
-.authorImagePreview {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #eee;
-}
+
 
 .imageUploadBtn {
   background-color: #f0f0f0;
@@ -328,6 +326,8 @@
   resize: vertical;
 }
 
+
+
 .modalButtons {
   display: flex;
   gap: 1rem;
@@ -365,6 +365,49 @@
 .cancelBtn:hover {
   background-color: #da190b;
   transform: translateY(-1px);
+}
+
+
+
+.formGroup.inline {
+display: flex;
+gap: 1.5rem;
+margin-bottom: 1.5rem;
+}
+
+.formGroup.inline > div {
+flex: 1;
+}
+
+.formGroup.inline label {
+font-size: 0.95rem;
+color: #555;
+font-weight: 500;
+margin-bottom: 0.5rem;
+}
+
+.dropdown {
+width: 100%;
+padding: 0.75rem;
+border: 1px solid #ddd;
+border-radius: 8px;
+font-size: 1rem;
+font-family: 'Poppins', sans-serif;
+background-color: #f8f8f8;
+color: #555;
+cursor: pointer;
+transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.dropdown:focus {
+outline: none;
+border-color: #4CAF50;
+box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+
+.dropdown option {
+font-family: 'Poppins', sans-serif;
+color: #555;
 }
 
 /* Delete Modal Specific Styles */
@@ -410,260 +453,60 @@
 
 .deleteWarning {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: #fff3f3;
-  border: 1px solid #ffcdd2;
-  border-radius: 8px;
-  margin: 1.5rem 0;
-}
-
-.warningIcon {
-  width: 24px;
-  height: 24px;
-  color: #f44336;
-  flex-shrink: 0;
-}
-
-.deleteWarning p {
-  color: #d32f2f;
-  font-size: 0.95rem;
-  margin: 0;
-  line-height: 1.5;
-}
-
-.confirmDelete {
-  background-color: #f44336;
-  color: white;
-  font-weight: 600;
-  min-width: 180px;
-  padding: 0.85rem 2.5rem;
-  letter-spacing: 0.5px;
-  border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
-  
-  font-size: 0.95rem;
-  
-}
-
-.confirmDelete:hover {
-  background-color: #d32f2f;
- 
-}
-
-.deleteModal .modalButtons {
-  justify-content: space-between;
-  padding: 0 1rem;
-}
-
-.deleteModal .cancelBtn {
-  min-width: 140px;
-  background-color: #e0e0e0;
-  color: #333;
-  font-weight: 500;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.deleteModal .cancelBtn:hover {
-  background-color: #d5d5d5;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-@media (max-width: 600px) {
-  .imagePreviewSection {
-    grid-template-columns: 1fr;
-  }
-  
-  .modalContent {
-    padding: 1.5rem;
-  }
-  
-  .modalButtons {
-    flex-direction: column;
-  }
-  
-  .updateBtn,
-  .cancelBtn {
-    width: 100%;
-  }
-}
-
-@media (max-width: 800px) {
-  .sidebar {
-    position: absolute;
-    transform: translateX(-100%);
-  }
-  .sidebarOpen {
-    transform: translateX(0);
-  }
-
-  .profileContent {
-    margin-left: 0;
-    padding: 1rem;
-  }
-
-  .viewPro {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    padding: 10px;
-  }
-
-  .details {
-    margin-left: 0;
-  }
-
-  .userBlogs {
-    margin-left: 0;
-  }
-}
-
-@media (max-width: 600px) {
-  .deletePreview {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .deleteImagePreview {
-    width: 100%;
-    height: 200px;
-  }
-
-  .deleteWarning {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .deleteModal .modalButtons {
-    padding: 0;
-  }
-  
-  .confirmDelete,
-  .deleteModal .cancelBtn {
-    min-width: 100%;
-    margin: 0.5rem 0;
-  }
-}
-
-/* Profile Edit Modal Styles */
-.profileEditModal {
-  max-width: 400px;
-}
-
-.profileImageSection {
-  display: flex;
   justify-content: center;
-  margin: 1.5rem 0;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #d9534f;
 }
 
-.profileImageContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+.deleteWarningIcon {
+  margin-right: 0.5rem;
 }
 
-.profileImagePreview {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #4CAF50;
-  padding: 3px;
-  background-color: white;
-}
-
-.profileEditModal .imageUploadBtn {
-  background-color: #f0f0f0;
-  color: #333;
-  border: none;
-  padding: 0.5rem 1.5rem;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-  font-family: 'Poppins', sans-serif;
-}
-
-.profileEditModal .imageUploadBtn:hover {
-  background-color: #e0e0e0;
-  transform: translateY(-1px);
-}
-
-.profileEditModal .formGroup {
-  margin-bottom: 1.2rem;
-}
-
-.profileEditModal .formGroup label {
-  font-weight: 500;
-  color: #444;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-.profileEditModal .formGroup input {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
-  font-size: 0.95rem;
-  width: 100%;
-  transition: all 0.2s;
-  font-family: 'Poppins', sans-serif;
-}
-
-.profileEditModal .formGroup input:focus {
-  border-color: #4CAF50;
-  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
-  outline: none;
-}
-
-.profileEditModal .modalButtons {
+.deleteActions {
   margin-top: 2rem;
   display: flex;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: space-between;
 }
 
-.profileEditModal .updateBtn {
-  background-color: #4CAF50;
-  color: white;
-  min-width: 140px;
-  font-weight: 500;
-  border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
-  padding: 0.75rem 1.5rem;
-}
-
-.profileEditModal .updateBtn:hover {
-  background-color: #45a049;
-}
-
-.profileEditModal .cancelBtn {
-  background-color: #e0e0e0;
+.deleteActions .cancelBtn {
+  background-color: #287074;
   color: #333;
-  min-width: 140px;
-  padding: 0.75rem 1.5rem;
+  width: 100%;
 }
 
-.profileEditModal .cancelBtn:hover {
-  background-color: #d5d5d5;
+.deleteActions .cancelBtn:hover {
+  background-color: #e0e0e0;
 }
 
-@media (max-width: 600px) {
-  .profileEditModal {
-    padding: 1.5rem;
-  }
-
-  .profileEditModal .modalButtons {
-    flex-direction: column;
-  }
-
-  .profileEditModal .updateBtn,
-  .profileEditModal .cancelBtn {
-    width: 100%;
-    margin: 0.5rem 0;
-  }
+.deleteActions .confirmBtn {
+  background-color: #d9534f;
+  color: white;
+  width: 100%;
 }
+
+.deleteActions .confirmBtn:hover {
+  background-color: #c9302c;
+}
+
+.modalButtons .deleteBtn{
+  background-color: #f42c15;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  width: 30%;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  border: none;
+  
+}
+
+.modalButtons .deleteBtn:hover {
+  background-color: #810707dc;
+  color: #ffffff;
+}
+
+
+
+

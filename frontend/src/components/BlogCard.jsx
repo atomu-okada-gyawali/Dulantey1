@@ -32,6 +32,7 @@ function BlogCard({
   const [submittedComment, setSubmittedComment] = useState("");
   const [rating, setRating] = useState(initialRating);
   const [showMenu, setShowMenu] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false); // New state for expansion
 
   const toggleComment = () => {
     setIsCommenting(!isCommenting);
@@ -39,6 +40,10 @@ function BlogCard({
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
+  };
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded); // Toggle the expanded state
   };
 
   const handleCommentChange = (e) => {
@@ -162,9 +167,15 @@ function BlogCard({
                 <h2 className={styles.blogTitle}>{title}</h2>
                 <p className={styles.blogDescription}>{description}</p>
               </div>
-              <a href="#" className={styles.moreLink}>
-                More
+              <a href="#" className={styles.moreLink} onClick={toggleExpand}>
+                {isExpanded ? 'Less' : 'More'} {/* Change text based on state */}
               </a>
+              {isExpanded && (
+                <div className={styles.expandedContent}>
+                  
+                  
+                </div>
+              )}
               {submittedComment && (
                 <div className={styles.submittedComment}>
                   <p>{submittedComment}</p>

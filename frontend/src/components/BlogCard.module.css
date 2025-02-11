@@ -1,11 +1,8 @@
-
-
 .blogCard {
     background-color: white;
     border-radius: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-   
     width: 90%;
     height: 350px;
 }
@@ -50,7 +47,7 @@
 }
 
 .authorImage:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 .authorNameDate {
@@ -62,12 +59,12 @@
 }
 
 .authorNameLink {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 .authorNameLink:hover {
-  color: #2563eb;
+    color: #2563eb;
 }
 
 .authorName {
@@ -82,9 +79,9 @@
 }
 
 .blogActions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .actions {
@@ -119,57 +116,57 @@
 }
 
 .menuContainer {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
 }
 
 .menuBtn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  color: #4b5563;
-  transition: color 0.2s;
-  display: flex;
-  align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #4b5563;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
 }
 
 .menuBtn:hover {
-  color: #2563eb;
+    color: #2563eb;
 }
 
 .dropdownMenu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  min-width: 120px;
-  padding: 0.5rem 0;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 120px;
+    padding: 0.5rem 0;
 }
 
 .dropdownMenu button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  width: 100%;
-  padding: 0.5rem 1rem;
-  background: none;
-  border: none;
-  color: #4b5563;
-  cursor: pointer;
-  font-size: 0.875rem;
-  text-align: left;
-  transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: none;
+    border: none;
+    color: #4b5563;
+    cursor: pointer;
+    font-size: 0.875rem;
+    text-align: left;
+    transition: background-color 0.2s;
 }
 
 .dropdownMenu button:hover {
-  background-color: #f3f4f6;
-  color: #2563eb;
+    background-color: #f3f4f6;
+    color: #2563eb;
 }
 
 .blogBody {
@@ -206,7 +203,10 @@
     margin-left: 530px;
     font-family: "Inter", sans-serif;
     font-weight: 400;
+    
 }
+
+
 
 .commentArea {
     display: flex;
@@ -244,6 +244,8 @@
     font-family: 'Poppins', sans-serif;
     color: #374151;
 }
+
+
 
 @media (max-width: 800px) {
     .blogCard {
