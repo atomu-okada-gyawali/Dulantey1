@@ -11,10 +11,12 @@ import errorHandler from "./middleware/errorHandler.js";
 import blogRoutes from "./routes/blogs.routes.js";
 import reviewRoutes from "./routes/review.routes.js";
 import commentRoutes from "./routes/comment.routes.js";
+
 import authRouter from "./routes/authRoutes.js";
 import Categories from "./model/categories.model.js";
 import Location from "./model/location.model.js";
 import authenticateToken from "./middleware/token-middleware.js";
+
 
 
 const app = express();
@@ -26,6 +28,7 @@ app.use(json()); // Parse JSON requests
 
 // Sync Database with error handling
 syncDatabase()
+
     .then(() => {
         console.log("Database synchronized successfully.");
         return insertCategories();
@@ -96,6 +99,7 @@ async function insertLocations() {
         }
     }
     await Location.bulkCreate(locations, { ignoreDuplicates: true }); // Skips duplicate entries
+
 }
 
 // Routes
@@ -105,8 +109,7 @@ app.use(authenticateToken);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/comments", commentRoutes);
-// app.use("/api/categories", categoriesRoutes); // Register categories routes
-// app.use("/api/locations", locationRoutes); // Register location routes
+
 
 // Error Handling Middleware
 app.use(errorHandler);

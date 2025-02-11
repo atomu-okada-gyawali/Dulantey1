@@ -3,7 +3,7 @@ const commentController={
   create: async (req, res) => {
     try {
       const {user_id,blog_id,content} = req.body;
-      const newComment = await Blog.create({
+      const newComment = await Comment.create({
         user_id:user_id,
         blog_id:blog_id,
         content:content

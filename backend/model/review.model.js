@@ -32,7 +32,7 @@ Review.init(
       onDelete: "CASCADE",
     },
     review: {
-      type: DataTypes.DECIMAL(19, 2), // Matches `numeric(19,2)` in PostgreSQL
+      type: DataTypes.DECIMAL(19, 2), 
       allowNull: false,
     },
   },
@@ -40,7 +40,7 @@ Review.init(
     sequelize,
     modelName: "Review",
     tableName: "review",
-    timestamps: true, // Set to true if you want `createdAt` & `updatedAt`
+    timestamps: true, 
   },
 
 );

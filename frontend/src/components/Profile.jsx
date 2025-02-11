@@ -79,7 +79,6 @@ function Profile() {
   };
 
   const handleConfirmDelete = () => {
-   
     console.log('Deleting blog:', selectedBlog);
     setIsDeleteModalOpen(false);
     setSelectedBlog(null);
@@ -155,141 +154,146 @@ function Profile() {
           ))}
         </div>
 
-        
         {isUpdateModalOpen && (
-          <div className={styles.modalOverlay}>
-            <div className={styles.modalContent}>
-              <h2>Update Blog</h2>
-              <form onSubmit={handleUpdateSubmit}>
-                <div className={styles.imagePreviewSection}>
-                  <div className={styles.formGroup}>
-                    <label>Blog Image:</label>
-                    <div className={styles.imagePreviewContainer}>
-                      <img 
-                        src={selectedBlog?.imgSrc} 
-                        alt="Blog preview" 
-                        className={styles.imagePreview}
-                      />
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handleImageChange(e, 'blog')}
-                        ref={blogImageRef}
-                        style={{ display: 'none' }}
-                      />
-                      <button
-                        type="button"
-                        className={styles.imageUploadBtn}
-                        onClick={() => blogImageRef.current.click()}
-                      >
-                        Change Blog Image
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className={styles.formGroup}>
-                    <label>Author Image:</label>
-                    <div className={styles.imagePreviewContainer}>
-                      <img 
-                        src={selectedBlog?.authorImg} 
-                        alt="Author preview" 
-                        className={styles.authorImagePreview}
-                      />
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handleImageChange(e, 'author')}
-                        ref={authorImageRef}
-                        style={{ display: 'none' }}
-                      />
-                      <button
-                        type="button"
-                        className={styles.imageUploadBtn}
-                        onClick={() => authorImageRef.current.click()}
-                      >
-                        Change Author Image
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label>Title:</label>
-                  <input
-                    type="text"
-                    value={selectedBlog?.title || ''}
-                    onChange={(e) => setSelectedBlog({...selectedBlog, title: e.target.value})}
-                    placeholder="Enter blog title"
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label>Author Name:</label>
-                  <input
-                    type="text"
-                    value={selectedBlog?.authorName || ''}
-                    onChange={(e) => setSelectedBlog({...selectedBlog, authorName: e.target.value})}
-                    placeholder="Enter author name"
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label>Location:</label>
-                  <input
-                    type="text"
-                    value={selectedBlog?.location || ''}
-                    onChange={(e) => setSelectedBlog({...selectedBlog, location: e.target.value})}
-                    placeholder="Enter location"
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label>Date:</label>
-                  <input
-                    type="date"
-                    value={selectedBlog?.date || ''}
-                    onChange={(e) => setSelectedBlog({...selectedBlog, date: e.target.value})}
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label>Rating:</label>
-                  <input
-                    type="number"
-                    min="1"
-                    max="5"
-                    value={selectedBlog?.initialRating || ''}
-                    onChange={(e) => setSelectedBlog({...selectedBlog, initialRating: parseInt(e.target.value)})}
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label>Description:</label>
-                  <textarea
-                    value={selectedBlog?.description || ''}
-                    onChange={(e) => setSelectedBlog({...selectedBlog, description: e.target.value})}
-                    placeholder="Enter blog description"
-                  />
-                </div>
-
-                <div className={styles.modalButtons}>
-                  <button type="submit" className={styles.updateBtn}>Update Blog</button>
-                  <button 
-                    type="button" 
-                    onClick={() => {
-                      setIsUpdateModalOpen(false);
-                      setSelectedBlog(null);
-                    }}
-                    className={styles.cancelBtn}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
+  <div className={styles.modalOverlay}>
+    <div className={styles.modalContent}>
+      <h2>Update Blog</h2>
+      <form onSubmit={handleUpdateSubmit}>
+        {/* Blog Image Section */}
+        <div className={styles.imagePreviewSection}>
+          <div className={styles.formGroup}>
+            <label>Blog Image:</label>
+            <div className={styles.imagePreviewContainer}>
+              <img
+                src={selectedBlog?.imgSrc || "./src/assets/dropimage.png"}
+                alt="Blog preview"
+                className={styles.imagePreview}
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageChange(e, 'blog')}
+                ref={blogImageRef}
+                style={{ display: 'none' }}
+              />
+              <button
+                type="button"
+                className={styles.imageUploadBtn}
+                onClick={() => blogImageRef.current.click()}
+              >
+                Change Blog Image
+              </button>
             </div>
           </div>
-        )}
+        </div>
 
+        {/* Title Field */}
+        <div className={styles.formGroup}>
+          <label>Title:</label>
+          <input
+            type="text"
+            value={selectedBlog?.title || ''}
+            onChange={(e) => setSelectedBlog({ ...selectedBlog, title: e.target.value })}
+            placeholder="Once upon a time..."
+            maxLength="180"
+          />
+        </div>
+
+        {/* Description Field */}
+        <div className={styles.formGroup}>
+          <label>Description:</label>
+          <textarea
+            value={selectedBlog?.description || ''}
+            onChange={(e) => setSelectedBlog({ ...selectedBlog, description: e.target.value })}
+            placeholder="The start of a wonderful story..."
+            maxLength="180"
+          />
+        </div>
+
+        {/* Category and Location Dropdowns */}
+        <div className={`${styles.formGroup} ${styles.inline}`}>
+          <div>
+            <label>Type:</label>
+            <select
+              value={selectedBlog?.category || ''}
+              onChange={(e) => setSelectedBlog({ ...selectedBlog, category: e.target.value })}
+              className={styles.dropdown}
+            >
+              <option value="" disabled>Select a category</option>
+              <option value="food">Food</option>
+              <option value="outing">Outing</option>
+              <option value="events">Events</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Location:</label>
+            <select
+              value={selectedBlog?.location || ''}
+              onChange={(e) => setSelectedBlog({ ...selectedBlog, location: e.target.value })}
+              className={styles.dropdown}
+            >
+              <option value="" disabled>Select a province</option>
+              <option value="province1">Province 1</option>
+              <option value="province2">Province 2</option>
+              <option value="province3">Province 3</option>
+              <option value="province4">Province 4</option>
+              <option value="province5">Province 5</option>
+              <option value="province6">Province 6</option>
+              <option value="province7">Province 7</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Address Field */}
+        <div className={styles.formGroup}>
+          <label>Address:</label>
+          <input
+            type="text"
+            value={selectedBlog?.address || ''}
+            onChange={(e) => setSelectedBlog({ ...selectedBlog, address: e.target.value })}
+            placeholder="Enter address"
+          />
+        </div>
+
+        {/* Opening Hours Field */}
+        <div className={`${styles.formGroup} ${styles.openingHours}`}>
+          <label>Opening Hours:</label>
+          <div className={styles.timeInputs}>
+            <input
+              type="time"
+              value={selectedBlog?.openingTime || ''}
+              onChange={(e) => setSelectedBlog({ ...selectedBlog, openingTime: e.target.value })}
+              className={styles.timeInput}
+            />
+            <span>to</span>
+            <input
+              type="time"
+              value={selectedBlog?.closingTime || ''}
+              onChange={(e) => setSelectedBlog({ ...selectedBlog, closingTime: e.target.value })}
+              className={styles.timeInput}
+            />
+          </div>
+        </div>
+
+        {/* Modal Buttons */}
+        <div className={styles.modalButtons}>
+          <button type="submit" className={styles.updateBtn}>Update Blog</button>
+          <button
+            type="button"
+            onClick={() => {
+              setIsUpdateModalOpen(false);
+              setSelectedBlog(null);
+            }}
+            className={styles.cancelBtn}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
         
         {isDeleteModalOpen && (
           <div className={styles.modalOverlay}>

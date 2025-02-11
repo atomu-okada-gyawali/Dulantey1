@@ -17,6 +17,7 @@ Categories.init(
     },
   },
 
+
   {
     sequelize,
     modelName: "categories",
