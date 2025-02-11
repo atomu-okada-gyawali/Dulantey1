@@ -2,13 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import BlogCard from './BlogCard';
 import Sidebar from './SideBar';
-<<<<<<< HEAD
-import styles from './BrowsePage.module.css'; 
-=======
 
 import styles from './BrowsePage.module.css'; // Importing the CSS module
 
->>>>>>> c23ca70913919cd35b6b995fbd3c12412b8f4082
 function BrowsePage() {
   const blogs = [
     {

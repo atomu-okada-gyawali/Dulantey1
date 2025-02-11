@@ -16,7 +16,7 @@ const UserController = {
     }
   },
   getUserById: async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
     try {
       const user = await User.findOne({
         where: {
@@ -57,8 +57,8 @@ const UserController = {
     }
   },
   updateUser: async (req, res) => {
-    const { id, password, full_name, email, username, photo } = req.body;
-
+    const { password, full_name, email, username, photo } = req.body;
+    const { id } = req.params;
     try {
       const result = await User.update(
         {
@@ -77,6 +77,7 @@ const UserController = {
       if (result[0] === 0) {
         return console.log("No user found to update");
       }
+      res.status(201).json(result); // Return the created user
       console.log("User updated successfully");
     } catch (err) {
       console.error(err.message);
@@ -84,7 +85,7 @@ const UserController = {
     }
   },
   deleteUser: async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
     try {
       const result = await User.destroy({
         where: {
@@ -94,6 +95,7 @@ const UserController = {
       if (result === 0) {
         return console.log("No user found to delete");
       }
+      res.status(201).json(result); // Return the deleted user
       console.log("User deleted successfully");
     } catch (err) {
       console.error(err.message);

@@ -93,3 +93,4 @@ Blog.belongsTo(Category, { foreignKey: "categories_id" });
 Blog.belongsTo(Location, { foreignKey: "location_id" });
 
 export default Blog;
+ 
