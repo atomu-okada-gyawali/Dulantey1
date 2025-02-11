@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import styles from "./SideBar.module.css"; 
+import styles from "./SideBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faNewspaper, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,18 +16,18 @@ function SideBar() {
       setIsOpen(width > 800);
     };
 
-  
+
     window.addEventListener('resize', handleResize);
 
-  
+
     return () => window.removeEventListener('resize', handleResize);
-  }, []); 
+  }, []);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
- 
+
   const isOnBlogsPage = true;
 
   return (

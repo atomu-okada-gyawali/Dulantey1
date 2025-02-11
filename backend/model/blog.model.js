@@ -13,7 +13,7 @@ import User from "./user.model.js"; // Import User model for association
 import Category from "./categories.model.js"; // Import Category model for association
 import Location from "./location.model.js"; // Import Location model for association
 
-class Blog extends Model {}
+class Blog extends Model { }
 
 Blog.init(
   {
@@ -27,7 +27,7 @@ Blog.init(
       allowNull: false,
     },
     photos: {
-      type: DataTypes.BLOB("long"), // `BYTEA` maps to BLOB
+      type: DataTypes.STRING, // `BYTEA` maps to BLOB
       allowNull: true,
     },
     description: {

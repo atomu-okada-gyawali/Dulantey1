@@ -1,29 +1,45 @@
-const Users = require("../model/userSchema");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import User from "../model/user.model.js";
+import generateToken from "../security/jwt-util.js";
 
 const login = async (req, res) => {
-    const { email, password } = req.body;
-
     try {
-        const user = await Users.findOne({ where: { email } });
+        //fetching all the data from users table
+        if (req.body.email == null) {
+            return res.status(400).send({ message: "email is required" });
+        }
+        if (req.body.password == null) {
+            return res.status(400).send({ message: "password is required" });
+        }
+        const user = await User.findOne({ where: { email: req.body.email } });
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).send({ message: "user not found" });
         }
-
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ message: "Invalid password" });
+        if (user.password === req.body.password) {
+            const token = generateToken({ user: user.toJSON() });
+            return res.status(200).send({
+                data: { access_token: token },
+                message: "successfully logged in",
+            });
+        } else {
+            return res.status(401).send({ message: "incorrect password" });
         }
-
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-            expiresIn: "1h",
-        });
-        res.status(200).json({ token });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "server error" });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({ error: "Failed to login" });
     }
 };
 
-module.exports = { login };
+const init = async (req, res) => {
+    try {
+        const user = req.user.user;
+        delete user.password;
+        res
+            .status(201)
+            .send({ data: user, message: "successfully fetched current user" });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({ error: "Failed to fetch users" });
+    }
+};
+
+export default { login, init };

@@ -101,7 +101,9 @@ const blogController = {
       console.error("Error fetching Blog:", err.stack);
       return res.status(500).json({ error: "Error fetching blog" }); // Send error response
     }
-  },
+
+  }
+
 };
 
 export default blogController;

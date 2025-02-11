@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database.js"; // Ensure you have a Sequelize instance
 
-class Categories extends Model {}
+class Categories extends Model { }
 
 Categories.init(
   {
@@ -11,11 +11,13 @@ Categories.init(
       autoIncrement: true,
     },
     name: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-    }
+    },
   },
+
+
   {
     sequelize,
     modelName: "categories",
