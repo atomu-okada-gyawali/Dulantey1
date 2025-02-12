@@ -1,10 +1,19 @@
 import Blog from "../model/blog.model.js";
 
 const blogController = {
-
   create: async (req, res) => {
     try {
-      const { title, photo, desc, location, user_id, categories_id } = req.body;
+      const {
+        title,
+        photo,
+        desc,
+        location,
+        user_id,
+        categories_id,
+        address,
+        open_time,
+        close_time,
+      } = req.body;
       const newBlog = await Blog.create({
         title: title,
         photos: photo, // Ensure this is handled correctly if it's a file
@@ -12,6 +21,9 @@ const blogController = {
         location_id: location,
         user_id: user_id,
         categories_id: categories_id,
+        address: address,
+        open_time: open_time,
+        close_time: close_time,
       });
       console.log("Blog created:", newBlog); // Log the created blog
       return res.status(201).json(newBlog); // Send the created blog as a response
@@ -34,11 +46,14 @@ const blogController = {
           location_id: location,
           user_id: user_id,
           categories_id: categories_id,
+          address: address,
+          open_time: open_time,
+          close_time: close_time,
         },
         {
           where: { id: id },
           returning: true,
-          plain: true
+          plain: true,
         }
       );
       console.log("Blog updated:", updatedBlog[1]);
@@ -86,9 +101,8 @@ const blogController = {
       console.error("Error fetching Blog:", err.stack);
       return res.status(500).json({ error: "Error fetching blog" }); // Send error response
     }
-  }
-};
 
+  }
 
 };
 

@@ -13,6 +13,7 @@ Location.init(
     name: {
       type: DataTypes.STRING(255),
       allowNull: false,
+      unique:true,
     },
   },
   {
