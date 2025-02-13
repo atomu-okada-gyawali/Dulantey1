@@ -78,13 +78,22 @@ const blogController = {
   },
 
   //retrive all
-  getAllBlogs: async (req, res) => {
+  get10Blogs: async (req, res) => {
     try {
-      const blogs = await Blog.findAll();
-      return res.status(200).json(blogs); // Send all blogs as a response
+      const page = parseInt(req.query.page) || 1; // Get the page number from query params (default: 1)
+      const limit = 10; // Number of blogs per page
+      const offset = (page - 1) * limit; // Calculate offset
+
+      const blogs = await Blog.findAll({
+        order: [["createdAt", "DESC"]], // Sort by newest blogs first
+        limit,
+        offset, // Skip the previous pages
+      });
+
+      return res.status(200).json(blogs);
     } catch (err) {
       console.error("Error fetching Blogs:", err.stack);
-      return res.status(500).json({ error: "Error fetching blogs" }); // Send error response
+      return res.status(500).json({ error: "Error fetching blogs" });
     }
   },
 
@@ -101,9 +110,20 @@ const blogController = {
       console.error("Error fetching Blog:", err.stack);
       return res.status(500).json({ error: "Error fetching blog" }); // Send error response
     }
-
-  }
-
+  },
+  shareIncrease: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const blog = await Blog.increment("shares_count", {
+        by: 1,
+        where: { id: id },
+      });
+      return res.status(200).json(blog); // Send the blog as a response
+    } catch (err) {
+      console.error("Error Sharing:", err.stack);
+      return res.status(500).json({ error: "Error sharing blog" });
+    }
+  },
 };
 
 export default blogController;
