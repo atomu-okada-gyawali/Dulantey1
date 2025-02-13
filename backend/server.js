@@ -11,6 +11,7 @@ import errorHandler from "./middleware/errorHandler.js";
 import blogRoutes from "./routes/blogs.routes.js";
 import reviewRoutes from "./routes/review.routes.js";
 import commentRoutes from "./routes/comment.routes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 import authRouter from "./routes/authRoutes.js";
 import Categories from "./model/categories.model.js";
@@ -109,6 +110,7 @@ app.use(authenticateToken);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/file", uploadRoutes);
 
 
 // Error Handling Middleware
