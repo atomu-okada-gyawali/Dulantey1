@@ -22,12 +22,12 @@ function authenticateToken(req, res, next) {
       .send({ message: "Access denied. No token provided." });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, process.env.secretkey, (err, decoded) => {
     if (err) {
       return res.status(403).send("Invalid or expired token.");
     }
     console.log("Decoded token:", decoded); // Log the decoded token
-    req.user = decoded; // Attach decoded payload to request object
+    req.user = decoded.user; // Attach decoded payload to request object
     next(); // Proceed to the next middleware or route handler
   });
 }

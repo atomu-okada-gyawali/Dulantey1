@@ -30,7 +30,10 @@ const login = async (req, res) => {
 };
 const init = async (req, res) => {
   try {
-    const user = req.user; 
+    if (!req.user) {
+      return res.status(401).send({ message: "Unauthorized" });
+    }
+    const user = req.user;
     delete user.password; // Remove password from user object
     res
       .status(201)
