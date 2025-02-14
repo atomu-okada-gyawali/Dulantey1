@@ -1,11 +1,13 @@
-import User from "../model/user.model.js"; // Ensure this path is correct
+import User from "../model/user.model.js";
+import bcrypt from "bcrypt";
 const UserController = {
   registerUser: async (req, res) => {
     try {
       const { full_name, password, email, username } = req.body;
+      const hashedPassword = await bcrypt.hash(password, 10);
       const result = await User.create({
         full_name: full_name,
-        password: password,
+        password: hashedPassword,
         email: email,
         username: username,
       });
