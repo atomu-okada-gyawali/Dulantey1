@@ -5,9 +5,12 @@ import logo from '../assets/logo.jpg';
 import image1 from '../assets/image1.jpg';
 import axios from 'axios';
 import { API } from '../environment';
+import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         console.log(data);
@@ -19,9 +22,13 @@ const Login = () => {
             });
 
             console.log("User logged in successfully:", response.data);
+            toast.success("login successful");
+            localStorage.setItem("token", response.data.data.access_token);
+            navigate('/')
             // Handle successful login, e.g., store token, redirect, etc.
         } catch (error) {
             console.error("Error logging in user:", error);
+            toast.error('Error logging in')
             // Handle login error, e.g., show error message
         }
 

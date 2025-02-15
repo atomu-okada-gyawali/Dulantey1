@@ -4,9 +4,12 @@ import styles from "./SignUp.module.css";
 import logo from "../assets/immmg.jpg";
 import axios from "axios";
 import { API } from "../environment";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     console.log("Submitted Data:", data);
@@ -18,8 +21,11 @@ function SignUp() {
       });
 
       console.log("User registered successfully:", response.data);
+      toast.success("Sign up successful");
+      navigate("/login");
     } catch (error) {
       console.error("Error registering user:", error);
+      toast.error("Error signing up")
     }
   };
 
