@@ -1,15 +1,30 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './Login.module.css';
-import logo from '../assets/logo.jpg'; 
-import image1 from '../assets/image1.jpg'; 
+import logo from '../assets/logo.jpg';
+import image1 from '../assets/image1.jpg';
+import axios from 'axios';
+import { API } from '../environment';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data);
-        
+        try {
+            const response = await axios.post(`${API.BASE_URL}/api/auth/login`, data, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            console.log("User logged in successfully:", response.data);
+            // Handle successful login, e.g., store token, redirect, etc.
+        } catch (error) {
+            console.error("Error logging in user:", error);
+            // Handle login error, e.g., show error message
+        }
+
     };
 
     return (
@@ -28,54 +43,54 @@ const Login = () => {
             <div className={`${styles.box} ${styles.right}`}>
                 <img src={logo} alt="Logo" className={styles.logo} />
                 <p>Don't just imagine paradise, <br />Experience it!</p>
-                <p2 className={styles.p2}>We'll help you plan your dream escape</p2>
+                <p className={styles.p2}>We'll help you plan your dream escape</p>
 
-                <p3 className={styles.p3}>Login</p3>
+                <p className={styles.p3}>Login</p>
 
-    <form onSubmit={handleSubmit(onSubmit)}>
-    
-    <div className={styles.inputField}>
-        <input 
-            type="text" 
-            className={`${errors.email ? styles.errorInput : ''}`} 
-            {...register("email", { 
-                required: "Email is required", 
-                pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" } 
-            })} 
-        />
-        <label>Email Id</label>
-        {errors.email && <p className={styles.errorMessage}>{errors.email.message}</p>}
-    </div>
+                <form onSubmit={handleSubmit(onSubmit)}>
 
-    {/* Password Field */}
-    <div className={styles.inputField}>
-        <input 
-            type="password" 
-            className={`${errors.password ? styles.errorInput : ''}`} 
-            {...register("password", { 
-                required: "Password is required",
-                minLength: { value: 8, message: "Password must be at least 8 characters" },
-                pattern: { 
-                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$/, 
-                  message: "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character" 
-                }
-              })} 
-        />
-        <label>Password</label>
-        <a href="#" className={styles.forgotPassword}>
-            Forgot your password?
-        </a>
-        {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
-    </div>
+                    <div className={styles.inputField}>
+                        <input
+                            type="text"
+                            className={`${errors.email ? styles.errorInput : ''}`}
+                            {...register("email", {
+                                required: "Email is required",
+                                pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" }
+                            })}
+                        />
+                        <label>Email Id</label>
+                        {errors.email && <p className={styles.errorMessage}>{errors.email.message}</p>}
+                    </div>
 
-    <button type="submit" className={styles.loginButton}>Login</button>
+                    {/* Password Field */}
+                    <div className={styles.inputField}>
+                        <input
+                            type="password"
+                            className={`${errors.password ? styles.errorInput : ''}`}
+                            {...register("password", {
+                                required: "Password is required",
+                                minLength: { value: 5, message: "Password must be at least 5 characters" },
+                                pattern: {
+                                    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/,
+                                    message: "Must include letters and numbers"
+                                }
+                            })}
+                        />
+                        <label>Password</label>
+                        <a href="#" className={styles.forgotPassword}>
+                            Forgot your password?
+                        </a>
+                        {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
+                    </div>
 
-    <div className={styles.account}>
-        <p2 className={styles.noAccount}>
-            Don't have an account? <a href="#" className={styles.signUpLink}>Sign Up?</a>
-        </p2>
-    </div>
-</form>
+                    <button type="submit" className={styles.loginButton}>Login</button>
+
+                    <div className={styles.account}>
+                        <p className={styles.noAccount}>
+                            Don't have an account? <a href="#" className={styles.signUpLink}>Sign Up?</a>
+                        </p>
+                    </div>
+                </form>
 
             </div>
         </div>
