@@ -2,13 +2,31 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import styles from "./SignUp.module.css";
 import logo from "../assets/immmg.jpg";
+import axios from "axios";
+import { API } from "../environment";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    console.log("Submitted Data:",data);
-    
+  const onSubmit = async (data) => {
+    console.log("Submitted Data:", data);
+    try {
+      const response = await axios.post(`${API.BASE_URL}/api/users/registration`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("User registered successfully:", response.data);
+      toast.success("Sign up successful");
+      navigate("/login");
+    } catch (error) {
+      console.error("Error registering user:", error);
+      toast.error("Error signing up")
+    }
   };
 
   return (
@@ -19,14 +37,14 @@ function SignUp() {
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className={styles.inputGroup}>
-          <input
-            type="text"
-            placeholder="Email Address"
-            className={`${styles.textInput} ${errors.email ? styles.errorInput : ""}`}
-            {...register("email", { required: "Email is required", pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" } })}
-            aria-invalid={errors.email ? "true" : "false"}
-          />
-          {errors.email && <p className = {styles.errorMessage}> {errors.email.message}</p>}
+            <input
+              type="text"
+              placeholder="Email Address"
+              className={`${styles.textInput} ${errors.email ? styles.errorInput : ""}`}
+              {...register("email", { required: "Email is required", pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" } })}
+              aria-invalid={errors.email ? "true" : "false"}
+            />
+            {errors.email && <p className={styles.errorMessage}> {errors.email.message}</p>}
           </div>
 
           <input
@@ -36,7 +54,7 @@ function SignUp() {
             {...register("fullname", { required: "Full Name is required" })}
             aria-invalid={errors.fullname ? "true" : "false"}
           />
-          {errors.fullname && <p className = {styles.errorMessage}>{errors.fullname.message}</p>}
+          {errors.fullname && <p className={styles.errorMessage}>{errors.fullname.message}</p>}
 
           <input
             type="text"
@@ -45,7 +63,7 @@ function SignUp() {
             {...register("username", { required: "Username is required" })}
             aria-invalid={errors.username ? "true" : "false"}
           />
-          {errors.username && <p className = {styles.errorMessage}>{errors.username.message}</p>}
+          {errors.username && <p className={styles.errorMessage}>{errors.username.message}</p>}
 
           <input
             type="password"
@@ -54,7 +72,7 @@ function SignUp() {
             {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters" } })}
             aria-invalid={errors.password ? "true" : "false"}
           />
-          {errors.password && <p className = {styles.errorMessage}>{errors.password.message}</p>}
+          {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
 
           <button type="submit" className={styles.signupButton}>Create Account</button>
         </form>
