@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import styles from './Profile.module.css';
 import SideBar from './SideBar';
+
 import BlogCard from './BlogCard';
 
 function Profile() {
