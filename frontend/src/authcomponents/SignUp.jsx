@@ -1,14 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from "./SignUp.module.css";
+import { ToastContainer, toast } from "react-toastify";
 import logo from "../assets/immmg.jpg";
+import { API } from "../../environment";
+
 
 function SignUp() {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate();
+  const [apiError, setApiError] = useState("");
 
-  const onSubmit = (data) => {
-    console.log("Submitted Data:",data);
-    
+  const onSubmit = async (data) => {
+    try {
+      setApiError("");
+      const response = await axios.post(`${API.BASE_URL}/auth/registration`, 
+        {
+          full_name: data.fullname,
+          email: data.email,
+          username: data.username,
+          password: data.password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true
+        }
+      );
+
+      if (response.data) {
+        toast.success("Registration successful");
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
+      }
+    } catch (error) {
+      if (error.response) {
+        const errorMessage = error.response.data.message || "Registration failed";
+        toast.error(errorMessage);
+        setApiError(errorMessage);
+      } else if (error.request) {
+        const errorMessage = "Server is not responding. Please check your connection and try again.";
+        toast.error(errorMessage);
+        setApiError(errorMessage);
+      } else {
+        const errorMessage = "An error occurred while sending the request.";
+        toast.error(errorMessage);
+        setApiError(errorMessage);
+      }
+      console.error("Registration error details:", {
+        error: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
+    }
   };
 
   return (
@@ -57,10 +105,11 @@ function SignUp() {
           {errors.password && <p className = {styles.errorMessage}>{errors.password.message}</p>}
 
           <button type="submit" className={styles.signupButton}>Create Account</button>
+          {apiError && <p className={styles.errorMessage}>{apiError}</p>}
         </form>
 
         <p className={styles.noAccount}>
-          Already have an account? <a href="#" className={styles.signUpLink}>Log in</a>
+          Already have an account? <a href="/login" className={styles.signUpLink}>Log in</a>
         </p>
       </div>
 
@@ -68,6 +117,7 @@ function SignUp() {
         <p>Start your journey by  <br />one click, explore <br />beautiful world!</p>
         <img src="./src/assets/rightImg.png" alt="right" />
       </div>
+      <ToastContainer /> 
     </div>
   );
 }
