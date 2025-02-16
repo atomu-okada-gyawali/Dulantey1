@@ -6,8 +6,8 @@ import blogController from "../controller/blog.controller.js";
 router.post("/createBlog", blogController.create);
 router.put("/updateBlog/:id", blogController.update);
 router.delete("/deleteBlog/:id", blogController.delete);
-router.get("/getAllBlogs", blogController.getAllBlogs);
+router.get("/getAllBlogs", blogController.get10Blogs);
 router.get("/getBlogById/:id", blogController.getBlogsById);
-
+router.put("/shareIncrease/:id", blogController.shareIncrease);
 
 export default router;

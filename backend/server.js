@@ -11,6 +11,7 @@ import errorHandler from "./middleware/errorHandler.js";
 import blogRoutes from "./routes/blogs.routes.js";
 import reviewRoutes from "./routes/review.routes.js";
 import commentRoutes from "./routes/comment.routes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 import authRouter from "./routes/authRoutes.js";
 import Categories from "./model/categories.model.js";
@@ -20,7 +21,7 @@ import authenticateToken from "./middleware/token-middleware.js";
 
 
 const app = express();
-const PORT = 6000;
+const PORT = 5000;
 
 // Middleware
 app.use(cors({
@@ -114,6 +115,7 @@ app.use(authenticateToken);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/file", uploadRoutes);
 
 
 // Error Handling Middleware

@@ -1,17 +1,42 @@
-import User from "../model/user.model.js"; // Ensure this path is correct
+import User from "../model/user.model.js";
+import bcrypt from "bcrypt";
 const UserController = {
   registerUser: async (req, res) => {
     try {
-      const { full_name, password, email, username } = req.body;
+      const { fullname, password, email, username } = req.body;
+
+      console.log("Received data:", req.body);
+
+      // Check if all required fields are provided
+      if (!fullname || !password || !email || !username) {
+        console.log("Missing required fields");
+        return res.status(400).json({ message: "All fields are required" });
+      }
+
+      // Check if the user already exists
+      const existingUser = await User.findOne({ where: { email } });
+      if (existingUser) {
+        console.log("User already exists");
+        return res.status(400).json({ message: "User already exists" });
+      }
+
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Create the user
       const result = await User.create({
-        full_name: full_name,
-        password: password,
-        email: email,
-        username: username,
+        fullname,
+        password: hashedPassword,
+        email,
+        username,
       });
-      res.status(201).json(result); // Return the created user
+
+      console.log("User created successfully:", result);
+
+      // Return the created user
+      res.status(201).json(result);
     } catch (err) {
-      console.error(err.message);
+      console.error("Error registering user:", err.message);
       res.status(500).send("Server Error");
     }
   },

@@ -5,57 +5,33 @@ import axios from "axios";
 import styles from "./SignUp.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import logo from "../assets/immmg.jpg";
-import { API } from "../../environment";
+
+import axios from "axios";
+import { API } from "../environment";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 function SignUp() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
-  const [apiError, setApiError] = useState("");
+
 
   const onSubmit = async (data) => {
+    console.log("Submitted Data:", data);
     try {
-      setApiError("");
-      const response = await axios.post(`${API.BASE_URL}/auth/registration`, 
-        {
-          full_name: data.fullname,
-          email: data.email,
-          username: data.username,
-          password: data.password
+      const response = await axios.post(`${API.BASE_URL}/api/users/registration`, data, {
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true
-        }
-      );
-
-      if (response.data) {
-        toast.success("Registration successful");
-        setTimeout(() => {
-          navigate('/login');
-        }, 2000);
-      }
-    } catch (error) {
-      if (error.response) {
-        const errorMessage = error.response.data.message || "Registration failed";
-        toast.error(errorMessage);
-        setApiError(errorMessage);
-      } else if (error.request) {
-        const errorMessage = "Server is not responding. Please check your connection and try again.";
-        toast.error(errorMessage);
-        setApiError(errorMessage);
-      } else {
-        const errorMessage = "An error occurred while sending the request.";
-        toast.error(errorMessage);
-        setApiError(errorMessage);
-      }
-      console.error("Registration error details:", {
-        error: error.message,
-        response: error.response?.data,
-        status: error.response?.status
       });
+
+      console.log("User registered successfully:", response.data);
+      toast.success("Sign up successful");
+      navigate("/login");
+    } catch (error) {
+      console.error("Error registering user:", error);
+      toast.error("Error signing up")
     }
   };
 
@@ -67,14 +43,14 @@ function SignUp() {
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className={styles.inputGroup}>
-          <input
-            type="text"
-            placeholder="Email Address"
-            className={`${styles.textInput} ${errors.email ? styles.errorInput : ""}`}
-            {...register("email", { required: "Email is required", pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" } })}
-            aria-invalid={errors.email ? "true" : "false"}
-          />
-          {errors.email && <p className = {styles.errorMessage}> {errors.email.message}</p>}
+            <input
+              type="text"
+              placeholder="Email Address"
+              className={`${styles.textInput} ${errors.email ? styles.errorInput : ""}`}
+              {...register("email", { required: "Email is required", pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" } })}
+              aria-invalid={errors.email ? "true" : "false"}
+            />
+            {errors.email && <p className={styles.errorMessage}> {errors.email.message}</p>}
           </div>
 
           <input
@@ -84,7 +60,7 @@ function SignUp() {
             {...register("fullname", { required: "Full Name is required" })}
             aria-invalid={errors.fullname ? "true" : "false"}
           />
-          {errors.fullname && <p className = {styles.errorMessage}>{errors.fullname.message}</p>}
+          {errors.fullname && <p className={styles.errorMessage}>{errors.fullname.message}</p>}
 
           <input
             type="text"
@@ -93,7 +69,7 @@ function SignUp() {
             {...register("username", { required: "Username is required" })}
             aria-invalid={errors.username ? "true" : "false"}
           />
-          {errors.username && <p className = {styles.errorMessage}>{errors.username.message}</p>}
+          {errors.username && <p className={styles.errorMessage}>{errors.username.message}</p>}
 
           <input
             type="password"
@@ -102,7 +78,7 @@ function SignUp() {
             {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters" } })}
             aria-invalid={errors.password ? "true" : "false"}
           />
-          {errors.password && <p className = {styles.errorMessage}>{errors.password.message}</p>}
+          {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
 
           <button type="submit" className={styles.signupButton}>Create Account</button>
           {apiError && <p className={styles.errorMessage}>{apiError}</p>}

@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import BrowsePage from './components/BrowsePage'; 
-import Profile from './components/Profile'; 
+import BrowsePage from './components/BrowsePage';
+import Profile from './components/Profile';
 import CreateBlog from './components/CreateBlog';
 
 // Lazy load authentication components
@@ -17,17 +17,20 @@ const LoadingFallback = () => (
   </div>
 );
 
+
 function App() {
   return (
     <Router>
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes>
-          <Route path="/BrowsePage" element={<BrowsePage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/createBlog" element={<CreateBlog />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
-      </Suspense>
+
+      <Routes>
+        <Route path="/" element={<BrowsePage />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/createBlog" element={<CreateBlog />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+
+
+      </Routes>
     </Router>
   );
 }
