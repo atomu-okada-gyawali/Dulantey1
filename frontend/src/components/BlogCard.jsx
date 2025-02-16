@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styles from './BlogCard.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -25,7 +26,7 @@ function BlogCard({
   initialRating,
   isOwnBlog,
   onUpdate,
-  onDelete 
+  onDelete
 }) {
   const [isCommenting, setIsCommenting] = useState(false);
   const [comment, setComment] = useState("");
@@ -226,5 +227,18 @@ function BlogCard({
     </article>
   );
 }
+BlogCard.propTypes = {
+  imgSrc: PropTypes.string.isRequired,
+  authorImg: PropTypes.string.isRequired,
+  authorName: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  initialRating: PropTypes.number.isRequired,
+  isOwnBlog: PropTypes.bool.isRequired,
+  onUpdate: PropTypes.func,
+  onDelete: PropTypes.func,
+};
 
 export default BlogCard;
