@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from "./SignUp.module.css";
+import { ToastContainer, toast } from "react-toastify";
 import logo from "../assets/immmg.jpg";
+
 import axios from "axios";
 import { API } from "../environment";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
+
 function SignUp() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+
 
   const onSubmit = async (data) => {
     console.log("Submitted Data:", data);
@@ -75,10 +81,11 @@ function SignUp() {
           {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
 
           <button type="submit" className={styles.signupButton}>Create Account</button>
+          {apiError && <p className={styles.errorMessage}>{apiError}</p>}
         </form>
 
         <p className={styles.noAccount}>
-          Already have an account? <a href="#" className={styles.signUpLink}>Log in</a>
+          Already have an account? <a href="/login" className={styles.signUpLink}>Log in</a>
         </p>
       </div>
 
@@ -86,6 +93,7 @@ function SignUp() {
         <p>Start your journey by  <br />one click, explore <br />beautiful world!</p>
         <img src="./src/assets/rightImg.png" alt="right" />
       </div>
+      <ToastContainer /> 
     </div>
   );
 }

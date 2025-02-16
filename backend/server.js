@@ -24,7 +24,12 @@ const app = express();
 const PORT = 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173", // or whatever port your frontend is running on
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(json()); // Parse JSON requests
 
 // Sync Database with error handling
@@ -116,4 +121,4 @@ app.use("/api/file", uploadRoutes);
 // Error Handling Middleware
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
