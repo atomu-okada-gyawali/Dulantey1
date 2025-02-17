@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
 import styles from "./SignUp.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import logo from "../assets/immmg.jpg";
 
 import axios from "axios";
 import { API } from "../environment";
-import { toast } from "react-toastify";
+
 import { useNavigate } from "react-router-dom";
 
 
