@@ -1,6 +1,7 @@
 import { Router } from "express";
 const router = Router();
 import blogController from "../controller/blog.controller.js";
+// import authenticateToken from "../middleware/token-middleware.js";
 
 // router.get("/registration", );
 router.post("/createBlog", blogController.create);

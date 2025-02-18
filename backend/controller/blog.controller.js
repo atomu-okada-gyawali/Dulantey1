@@ -111,7 +111,7 @@ const blogController = {
           offset, // Skip the previous pages
         },
       {where:{
-        user_id:user_id;
+        user_id:user_id
       }});
   
         return res.status(200).json(blogs);

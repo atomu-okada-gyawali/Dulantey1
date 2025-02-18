@@ -25,7 +25,7 @@ const PORT = 5000;
 
 // Middleware
 app.use(cors({
-    origin: "http://localhost:5173", // or whatever port your frontend is running on
+    origin: ["http://localhost:5173", "http://localhost:5174"], // allow both frontend ports
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
