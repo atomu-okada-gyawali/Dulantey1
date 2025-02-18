@@ -5,20 +5,22 @@ const blogController = {
     try {
       const {
         title,
-        photo,
         desc,
-        location,
+        location_id,
         user_id,
         categories_id,
         address,
         open_time,
         close_time,
       } = req.body;
+
+      const photoPath = req.file ? req.file.path : null;
+
       const newBlog = await Blog.create({
         title: title,
-        photos: photo, // Ensure this is handled correctly if it's a file
+        photos: photoPath,
         description: desc,
-        location_id: location,
+        location_id: location_id,
         user_id: user_id,
         categories_id: categories_id,
         address: address,
@@ -79,7 +81,6 @@ const blogController = {
 
   //retrive all
   get10Blogs: async (req, res) => {
-  
     try {
       const page = parseInt(req.query.page) || 1; // Get the page number from query params (default: 1)
       const limit = 10; // Number of blogs per page
@@ -97,29 +98,33 @@ const blogController = {
       return res.status(500).json({ error: "Error fetching blogs" });
     }
   },
-    //retrive all (self profile view)
-    get10BlogsSelf: async (req, res) => {
-      const user_id = req.params.id;
-      try {
-        const page = parseInt(req.query.page) || 1; // Get the page number from query params (default: 1)
-        const limit = 10; // Number of blogs per page
-        const offset = (page - 1) * limit; // Calculate offset
-  
-        const blogs = await Blog.findAll({
+  //retrive all (self profile view)
+  get10BlogsSelf: async (req, res) => {
+    const user_id = req.params.id;
+    try {
+      const page = parseInt(req.query.page) || 1; // Get the page number from query params (default: 1)
+      const limit = 10; // Number of blogs per page
+      const offset = (page - 1) * limit; // Calculate offset
+
+      const blogs = await Blog.findAll(
+        {
           order: [["createdAt", "DESC"]], // Sort by newest blogs first
           limit,
           offset, // Skip the previous pages
         },
-      {where:{
-        user_id:user_id
-      }});
-  
-        return res.status(200).json(blogs);
-      } catch (err) {
-        console.error("Error fetching Blogs:", err.stack);
-        return res.status(500).json({ error: "Error fetching blogs" });
-      }
-    },
+        {
+          where: {
+            user_id: user_id,
+          },
+        }
+      );
+
+      return res.status(200).json(blogs);
+    } catch (err) {
+      console.error("Error fetching Blogs:", err.stack);
+      return res.status(500).json({ error: "Error fetching blogs" });
+    }
+  },
 
   // retrive by id
   getBlogsById: async (req, res) => {

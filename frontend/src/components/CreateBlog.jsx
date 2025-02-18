@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import styles from "./CreateBlog.module.css";
@@ -16,6 +16,31 @@ const CreateBlog = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+
+  // Create preview for selected file
+  const onSelectFile = useCallback((e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Validate file type and size
+    if (!file.type.match("image.*")) {
+      setError("Please select a valid image file");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      // 5MB
+      setError("File size must be less than 5MB");
+      return;
+    }
+
+    setSelectedFile(file);
+    setError(null);
+    const reader = new FileReader();
+    reader.onload = () => setPreview(reader.result);
+    reader.readAsDataURL(file);
+  }, []);
   const { currentUser, loading: authLoading, error: authError } = useAuth();
 
   const onSubmit = async (data) => {
@@ -35,12 +60,18 @@ const CreateBlog = () => {
     }
 
     try {
-      const blogData = {
-        ...data,
-        user_id: currentUser.id,
-      };
-
-      const { currentUser, error: authError } = useAuth();
+      const formData = new FormData();
+      if (selectedFile) {
+        formData.append("photo", selectedFile);
+      }
+      formData.append("title", data.title);
+      formData.append("desc", data.description);
+      formData.append("categories_id", data.categories_id);
+      formData.append("location_id", data.location_id);
+      formData.append("address", data.address);
+      formData.append("open_time", data.open_time);
+      formData.append("close_time", data.close_time);
+      formData.append("user_id", currentUser.id);
       const token = localStorage.getItem("token");
 
       if (!token || authError) {
@@ -50,10 +81,11 @@ const CreateBlog = () => {
 
       const response = await axios.post(
         `${API.BASE_URL}/api/blogs/createBlog`,
-        blogData,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           },
           validateStatus: (status) => status < 500,
         }
@@ -92,12 +124,32 @@ const CreateBlog = () => {
         <div className={styles.container}>
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.imageUpload}>
-              <img src="./src/assets/dropimage.png" alt="imgicon" />
-              <div className={styles.imagePlaceholder}>
-                <p>
-                  Drop your image here or <a href="#">browse</a>
-                </p>
-              </div>
+              <input
+                type="file"
+                id="imageUpload"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={onSelectFile}
+              />
+              <label htmlFor="imageUpload">
+                {preview ? (
+                  <img
+                    src={preview}
+                    alt="Preview"
+                    className={styles.previewImage}
+                  />
+                ) : (
+                  <>
+                    <img src="./src/assets/dropimage.png" alt="imgicon" />
+                    <div className={styles.imagePlaceholder}>
+                      <p>
+                        Drop your image here or{" "}
+                        <span className={styles.browseLink}>browse</span>
+                      </p>
+                    </div>
+                  </>
+                )}
+              </label>
             </div>
 
             <div className={styles.formFields}>
