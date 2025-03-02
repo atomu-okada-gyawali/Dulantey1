@@ -7,6 +7,7 @@ import axios from 'axios';
 import { API } from '../environment';
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
+import { callAuthInit } from '../../../backend/authUtils';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -30,6 +31,11 @@ const Login = () => {
             console.error("Error logging in user:", error);
             toast.error('Error logging in')
             // Handle login error, e.g., show error message
+        }
+        try{
+            callAuthInit();
+        }catch(error){
+            console.log(error);
         }
 
     };

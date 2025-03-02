@@ -9,6 +9,9 @@ function authenticateToken(req, res, next) {
   if (req.path === "/api/auth/login") {
     return next();
   }
+  if (req.path.startsWith("/uploads")) {
+    return next();
+  }
   if (req.path === "/api/users/registration") {
     return next();
   }

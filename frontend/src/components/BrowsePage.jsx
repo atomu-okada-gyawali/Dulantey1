@@ -1,71 +1,53 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import BlogCard from './BlogCard';
-import Sidebar from './SideBar';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import BlogCard from "./BlogCard";
+import Sidebar from "./SideBar";
 
-import styles from './BrowsePage.module.css';
-
+import styles from "./BrowsePage.module.css";
+import { API } from "../environment";
 function BrowsePage() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [blogs, setBlogs] = useState([
-    {
-      imgSrc: "./src/assets/baudha.png",
-      authorImg: "./src/assets/tracy.png",
-      authorName: "Tracy Wilson",
-      date: "August 20, 2022",
-      location: "Kathmandu, Nepal",
-      title: "Bouddha Stupa",
-      description:
-        "A magnificent Buddhist shrine located in the heart of Kathmandu. The stupa's golden spire and prayer flags create a serene atmosphere. Perfect spot for meditation and cultural photography.",
-      initialRating: 0,
-    },
-    {
-      imgSrc: "./src/assets/namo.png",
-      authorImg: "./src/assets/tracy.png",
-      authorName: "Tracy Wilson",
-      date: "August 20, 2022",
-      location: "Kavrepalanchowk, Nepal",
-      title: "Namo Buddha",
-      description:
-        "An ancient Buddhist monastery with breathtaking views of the Himalayas. The peaceful environment and traditional architecture make it a perfect retreat for spiritual seekers and photography enthusiasts.",
-      initialRating: 4,
-    },
-    {
-      imgSrc: "./src/assets/baudha.png",
-      authorImg: "./src/assets/tracy.png",
-      authorName: "Tracy Wilson",
-      date: "August 20, 2022",
-      location: "Kathmandu, Nepal",
-      title: "Bouddha Stupa",
-      description:
-        "A magnificent Buddhist shrine located in the heart of Kathmandu. The stupa's golden spire and prayer flags create a serene atmosphere. Perfect spot for meditation and cultural photography.",
-      initialRating: 0,
-    },
-    {
-      imgSrc: "./src/assets/namo.png",
-      authorImg: "./src/assets/tracy.png",
-      authorName: "Tracy Wilson",
-      date: "August 20, 2022",
-      location: "Kavrepalanchowk, Nepal",
-      title: "Namo Buddha",
-      description:
-        "An ancient Buddhist monastery with breathtaking views of the Himalayas. The peaceful environment and traditional architecture make it a perfect retreat for spiritual seekers and photography enthusiasts.",
-      initialRating: 4,
-    },
-  ]);
-  const [visibleBlogs, setVisibleBlogs] = useState(2); // State to control how many blogs are visible
+  const [searchTerm, setSearchTerm] = useState("");
+  const [blogcount, setBlogCount] = useState(-1);
 
-  const filteredBlogs = blogs.filter((blog) => {
-    return blog.title.toLowerCase().includes(searchTerm.toLowerCase());
-  });
+  const [blogs, setBlogs] = useState([]);
 
   const loadMoreBlogs = () => {
-    setVisibleBlogs(blogs.length); // Show all blogs
+    setBlogCount((prevCount) => prevCount + 5); // Increment blogcount by 5
   };
 
-  const loadLessBlogs = () => {
-    setVisibleBlogs(2); // Reset to show only two blogs
-  };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const fetchBlogs = async () => {
+      try {
+        console.log(`${API.BASE_URL}/api/blogs/get5Blogs/${blogcount}`)
+        const response = await axios.get(
+          `${API.BASE_URL}/api/blogs/get5Blogs/${blogcount}`,
+
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const formattedBlogs = response.data.map((rawdatum) => ({
+          imgSrc: rawdatum.photos,
+          authorImg: rawdatum.User.profile,
+          authorName: rawdatum.User.username,
+          date: rawdatum.createdAt,
+          location: rawdatum.location_id,
+          title: rawdatum.title,
+          description: rawdatum.description,
+        }));
+        setBlogs((prevBlogs) => [...prevBlogs, ...formattedBlogs]); // Append new blogs to existing state
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
+
+    fetchBlogs();
+  }, [blogcount]);
 
   return (
     <div className={styles.browsePage}>
@@ -82,15 +64,13 @@ function BrowsePage() {
         </div>
 
         <div className={styles.blogsList}>
-          {filteredBlogs.slice(0, visibleBlogs).map((blog, index) => (
+          {blogs.map((blog, index) => (
             <BlogCard key={index} {...blog} />
           ))}
-          {visibleBlogs < filteredBlogs.length && (
-            <button className={styles.loadMoreButton} onClick={loadMoreBlogs}>Load More</button>
-          )}
-          {visibleBlogs > 2 && (
-            <button className={styles.loadLessButton} onClick={loadLessBlogs}>Load Less</button>
-          )}
+
+          <button className={styles.loadMoreButton} onClick={loadMoreBlogs}>
+            Load More
+          </button>
         </div>
       </div>
     </div>

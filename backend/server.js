@@ -2,6 +2,7 @@ import express, { json } from "express";
 import cors from "cors";
 import { config } from "dotenv";
 import { syncDatabase } from "./model/index.js";
+import path from "path";
 config();
 
 import userRoutes from "./routes/user.routes.js";
@@ -22,6 +23,10 @@ import authenticateToken from "./middleware/token-middleware.js";
 
 const app = express();
 const PORT = 5000;
+
+const __dirname = path.resolve(); // Get the current directory
+
+
 
 // Middleware
 app.use(cors({
@@ -116,7 +121,7 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/file", uploadRoutes);
-
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Error Handling Middleware
 app.use(errorHandler);

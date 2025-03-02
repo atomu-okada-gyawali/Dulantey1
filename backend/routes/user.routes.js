@@ -4,6 +4,7 @@ import UserController from "../controller/user.controller.js"; // Import the Use
 
 // router.get("/registration", );
 router.post("/registration", UserController.registerUser); // Use the registerUser method from UserController
+router.post("/bulkRegister", UserController.registerUsers); // Use the registerUser method from UserController
 router.get("/:id", UserController.getUserById);
 router.put("/:id", UserController.updateUser);
 router.delete("/:id", UserController.deleteUser);

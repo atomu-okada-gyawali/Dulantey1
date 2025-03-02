@@ -6,10 +6,12 @@ import upload from "../middleware/multerConfig.js";
 
 // router.get("/registration", );
 router.post("/createBlog", upload.single("photo"), blogController.create);
+router.post("/insertMockBlogs", blogController.insertMockBlogs);
 router.put("/updateBlog/:id", blogController.update);
 router.delete("/deleteBlog/:id", blogController.delete);
-router.get("/getAllBlogs", blogController.get10Blogs);
+router.get("/get5Blogs/:fromBlogId", blogController.getNext5Blogs);
 router.get("/getBlogById/:id", blogController.getBlogsById);
 router.put("/shareIncrease/:id", blogController.shareIncrease);
-router.get("/getAllBlogsSelf/:id", blogController.get10BlogsSelf);
+router.get("/get5BlogsSelf/:id/:fromBlogId", blogController.get5BlogsSelf);
+
 export default router;

@@ -1,31 +1,32 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
-import styles from './BlogCard.module.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faFlag, 
-  faShare, 
-  faMapMarkerAlt, 
-  faStar, 
+import { Link } from "react-router-dom";
+import styles from "./BlogCard.module.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { API } from "../environment";
+import {
+  faFlag,
+  faShare,
+  faMapMarkerAlt,
+  faStar,
   faCommentAlt,
   faEllipsisV,
   faPencilAlt,
-  faTrash
-} from '@fortawesome/free-solid-svg-icons';
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
-function BlogCard({ 
-  imgSrc, 
-  authorImg, 
-  authorName, 
-  date, 
-  location, 
-  title, 
-  description, 
+function BlogCard({
+  imgSrc,
+  authorImg,
+  authorName,
+  date,
+  location,
+  title,
+  description,
   initialRating,
   isOwnBlog,
   onUpdate,
-  onDelete 
+  onDelete,
 }) {
   const [isCommenting, setIsCommenting] = useState(false);
   const [comment, setComment] = useState("");
@@ -53,7 +54,7 @@ function BlogCard({
   };
 
   const toggleExpand = () => {
-    setIsExpanded(!isExpanded); 
+    setIsExpanded(!isExpanded);
   };
 
   const handleCommentChange = (e) => {
@@ -72,15 +73,16 @@ function BlogCard({
 
   const handleShareClick = () => {
     if (navigator.share) {
-      navigator.share({
-        title: document.title,
-        text: 'Check out this blog!',
-        url: window.location.href,
-      })
-      .then(() => console.log('Successful share'))
-      .catch((error) => console.log('Error sharing', error));
+      navigator
+        .share({
+          title: document.title,
+          text: "Check out this blog!",
+          url: window.location.href,
+        })
+        .then(() => console.log("Successful share"))
+        .catch((error) => console.log("Error sharing", error));
     } else {
-      alert('Web Share API is not supported in your browser.');
+      alert("Web Share API is not supported in your browser.");
     }
   };
 
@@ -97,7 +99,12 @@ function BlogCard({
   return (
     <article className={styles.blogCard}>
       <div className={styles.blogContent}>
-        <img src={imgSrc} alt={title} className={styles.blogImage} />
+        {console.log(`${API.BASE_URL}${imgSrc}`)}
+        <img
+          src={`${API.BASE_URL}/${imgSrc}`}
+          alt={title}
+          className={styles.blogImage}
+        />
         <div className={styles.blogDetails}>
           {isCommenting ? (
             <div className={styles.commentArea}>
@@ -108,10 +115,16 @@ function BlogCard({
                 onChange={handleCommentChange}
               ></textarea>
               <div className={styles.commentButtons}>
-                <button className={styles.commentSubmitBtn} onClick={handleCommentSubmit}>
+                <button
+                  className={styles.commentSubmitBtn}
+                  onClick={handleCommentSubmit}
+                >
                   Submit
                 </button>
-                <button className={styles.commentCloseBtn} onClick={closeComment}>
+                <button
+                  className={styles.commentCloseBtn}
+                  onClick={closeComment}
+                >
                   Close
                 </button>
               </div>
@@ -123,7 +136,11 @@ function BlogCard({
                   <div className={styles.blogHeader}>
                     <div className={styles.authorInfo}>
                       <Link to="/profile">
-                        <img src={authorImg} alt="Author" className={styles.authorImage} />
+                        <img
+                          src={authorImg}
+                          alt="Author"
+                          className={styles.authorImage}
+                        />
                       </Link>
                       <div className={styles.authorNameDate}>
                         <Link to="/profile" className={styles.authorNameLink}>
@@ -135,7 +152,10 @@ function BlogCard({
                     <div className={styles.blogActions}>
                       {isOwnBlog && (
                         <div className={styles.menuContainer}>
-                          <button className={styles.menuBtn} onClick={toggleMenu}>
+                          <button
+                            className={styles.menuBtn}
+                            onClick={toggleMenu}
+                          >
                             <FontAwesomeIcon icon={faEllipsisV} />
                           </button>
                           {showMenu && (
@@ -157,9 +177,15 @@ function BlogCard({
                             <FontAwesomeIcon
                               key={index}
                               icon={faStar}
-                              className={index < rating ? styles.starFilled : styles.star}
+                              className={
+                                index < rating ? styles.starFilled : styles.star
+                              }
                               onClick={() => handleRatingClick(index)}
-                              style={{ cursor: 'pointer', color: index < rating ? 'gold' : 'black', margin: '0 1px' }}
+                              style={{
+                                cursor: "pointer",
+                                color: index < rating ? "gold" : "black",
+                                margin: "0 1px",
+                              }}
                             />
                           ))}
                       </div>
@@ -167,10 +193,16 @@ function BlogCard({
                         <button className={styles.actionBtn}>
                           <FontAwesomeIcon icon={faFlag} />
                         </button>
-                        <button className={styles.actionBtn} onClick={toggleComment}>
+                        <button
+                          className={styles.actionBtn}
+                          onClick={toggleComment}
+                        >
                           <FontAwesomeIcon icon={faCommentAlt} />
                         </button>
-                        <button className={styles.actionBtn} onClick={handleShareClick}>
+                        <button
+                          className={styles.actionBtn}
+                          onClick={handleShareClick}
+                        >
                           <FontAwesomeIcon icon={faShare} />
                         </button>
                       </div>
@@ -198,10 +230,18 @@ function BlogCard({
                   <div className={styles.commentsList}>
                     {submittedComment && (
                       <div className={styles.commentItem}>
-                        <img src={authorImg} alt="Commenter" className={styles.commenterImage} />
+                        <img
+                          src={authorImg}
+                          alt="Commenter"
+                          className={styles.commenterImage}
+                        />
                         <div className={styles.commentContent}>
-                          <span className={styles.commenterName}>{authorName}</span>
-                          <p className={styles.commentText}>{submittedComment}</p>
+                          <span className={styles.commenterName}>
+                            {authorName}
+                          </span>
+                          <p className={styles.commentText}>
+                            {submittedComment}
+                          </p>
                         </div>
                       </div>
                     )}
@@ -209,14 +249,14 @@ function BlogCard({
                 </div>
               )}
               <div className={styles.postActions}>
-                <button 
-                  className={styles.viewCommentsBtn} 
+                <button
+                  className={styles.viewCommentsBtn}
                   onClick={toggleComments}
                 >
-                  {showComments ? 'Hide Comments' : 'View Comments'}
+                  {showComments ? "Hide Comments" : "View Comments"}
                 </button>
                 <a href="#" className={styles.moreLink} onClick={toggleExpand}>
-                  {isExpanded ? 'Less' : 'More'}
+                  {isExpanded ? "Less" : "More"}
                 </a>
               </div>
             </>

@@ -127,6 +127,37 @@ const UserController = {
       res.status(500).send("Server Error");
     }
   },
+  registerUsers: async (req, res) => {
+    try {
+        const users = [
+            { fullname: "Alice Johnson", email: "alice@example.com", username: "alicej", password: "password123" },
+            { fullname: "Bob Smith", email: "bob@example.com", username: "bobsmith", password: "password123" },
+            { fullname: "Charlie Brown", email: "charlie@example.com", username: "charlieb", password: "password123" },
+            { fullname: "David Lee", email: "david@example.com", username: "davidl", password: "password123" },
+            { fullname: "Emma Watson", email: "emma@example.com", username: "emmaw", password: "password123" },
+            { fullname: "Frank Ocean", email: "frank@example.com", username: "franko", password: "password123" },
+            { fullname: "Grace Kelly", email: "grace@example.com", username: "gracek", password: "password123" },
+            { fullname: "Henry Ford", email: "henry@example.com", username: "henryf", password: "password123" },
+            { fullname: "Isla Fisher", email: "isla@example.com", username: "isla", password: "password123" },
+            { fullname: "Jack White", email: "jack@example.com", username: "jackw", password: "password123" }
+        ];
+
+        const hashedUsers = await Promise.all(users.map(async (user) => ({
+            fullname: user.fullname,
+            email: user.email,
+            username: user.username,
+            password: await bcrypt.hash(user.password, 10)
+        })));
+
+        const newUsers = await User.bulkCreate(hashedUsers);
+        console.log("Users registered successfully:", newUsers);
+        return res.status(201).json({ message: "Users registered successfully", users: newUsers });
+    } catch (err) {
+        console.error("Error registering users:", err.message);
+        return res.status(500).json({ error: "Server Error" });
+    }
+}
 };
+
 
 export default UserController; // Correct export statement
