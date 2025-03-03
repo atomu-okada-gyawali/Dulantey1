@@ -81,96 +81,43 @@ const blogController = {
   },
 
   //retrive all
-  getNext5Blogs: async (req, res) => {
+  getAllBlogs: async (req, res) => {
     try {
-      const fromBlogId = parseInt(req.params.fromBlogId);
-      if (isNaN(fromBlogId)) {
-        return res.status(400).json({ error: "Invalid starting blog ID" });
-      }
-
-      let blogs;
-      if (fromBlogId === -1) {
-        // Fetch the first 5 blogs sorted by id descending
-        blogs = await Blog.findAll({
-          order: [["id", "DESC"]],
-          limit: 5,
-          include: [
-            {
-              model: User,
-              attributes: ["id", "username", "email", "profile"], // Include specific user fields
-            },
-          ],
-        });
-      } else {
-        // Fetch the next 5 blogs with id descending, starting after the given blog ID
-        blogs = await Blog.findAll({
-          where: {
-            id: { [Op.lt]: fromBlogId }, // Fetch blogs with ID less than fromBlogId
+      const blogs = await Blog.findAll({
+        include: [
+          {
+            model: User,
+            attributes: ["id", "username", "email", "profile"], // Include specific user fields
           },
-          order: [["id", "DESC"]],
-          limit: 5,
-          include: [
-            {
-              model: User,
-              attributes: ["id", "username", "email", "profile"], // Include specific user fields
-            },
-          ],
-        });
-      }
-
-      return res.status(200).json(blogs);
+        ],
+      });
+      return res.status(200).json(blogs); // Send the list of blogs as a response
     } catch (err) {
-      console.error("Error fetching Blogs:", err.stack);
-      return res.status(500).json({ error: "Error fetching blogs" });
+      console.error("Error fetching all Blogs:", err.stack);
+      return res.status(500).json({ error: "Error fetching blogs" }); // Send error response
     }
   },
   //retrive all (self profile view)
-  get5BlogsSelf: async (req, res) => {
+  getAllBlogsSelf: async (req, res) => {
     try {
       const user_id = req.params.id;
-      const fromBlogId = parseInt(req.params.fromBlogId);
-      if (isNaN(fromBlogId)) {
-        return res.status(400).json({ error: "Invalid starting blog ID" });
-      }
-
-      let blogs;
-      if (fromBlogId === -1) {
-        // Fetch the first 5 blogs sorted by id descending
-        blogs = await Blog.findAll({
-          where: {
-            user_id: user_id
+      const blogs = await Blog.findAll({
+        include: [
+          {
+            model: User,
+            attributes: ["id", "username", "email", "profile"], // Include specific user fields
           },
-          order: [["id", "DESC"]],
-          limit: 5,
-          include: [
-            {
-              model: User,
-              attributes: ["id", "username", "email", "profile"] // Include specific user fields
-            }
-          ]
-        });
-      } else {
-        // Fetch the next 5 blogs with id descending, starting after the given blog ID
-        blogs = await Blog.findAll({
-          where: {
-            id: { [Op.lt]: fromBlogId }, // Fetch blogs with ID less than fromBlogId
-            user_id: user_id
+          {
+            where: {
+              id: user_id,
+            },
           },
-          order: [["id", "DESC"]],
-          limit: 5,
-          include: [
-            {
-              model: User,
-              attributes: ["id", "username", "email", "profile"] // Include specific user fields
-            }
-          ]
-        });
-      }
-
-      return res.status(200).json(blogs);
+        ],
+      });
+      return res.status(200).json(blogs); // Send the list of blogs as a response
     } catch (err) {
-      console.error("Error fetching Blogs:", err.stack);
-      return res.status(500).json({ error: "Error fetching blogs" });
+      console.error("Error fetching all Blogs:", err.stack);
+      return res.status(500).json({ error: "Error fetching blogs" }); // Send error response
     }
   },
 
@@ -206,132 +153,6 @@ const blogController = {
     } catch (err) {
       console.error("Error Sharing:", err.stack);
       return res.status(500).json({ error: "Error sharing blog" });
-    }
-  },
-
-  insertMockBlogs: async (req, res) => {
-    try {
-      const mockBlogs = [
-        {
-          title: "Exploring Tokyo",
-          description: "A journey through Tokyo's streets",
-          location_id: 1,
-          user_id: 1,
-          categories_id: 2,
-          address: "Shibuya, Tokyo",
-          open_time: "08:00",
-          close_time: "20:00",
-          photos: "/uploads/photo1.jpg",
-        },
-        {
-          title: "Parisian Cafes",
-          description: "Best cafes in Paris",
-          location_id: 2,
-          user_id: 2,
-          categories_id: 3,
-          address: "Champs-Élysées, Paris",
-          open_time: "09:00",
-          close_time: "21:00",
-          photos: "/uploads/photo2.jpg",
-        },
-        {
-          title: "New York Nightlife",
-          description: "A guide to NYC's best clubs",
-          location_id: 3,
-          user_id: 3,
-          categories_id: 1,
-          address: "Manhattan, NY",
-          open_time: "20:00",
-          close_time: "04:00",
-          photos: "/uploads/photo3.jpg",
-        },
-        {
-          title: "Beaches of Bali",
-          description: "A relaxing getaway",
-          location_id: 4,
-          user_id: 4,
-          categories_id: 2,
-          address: "Kuta Beach, Bali",
-          open_time: "06:00",
-          close_time: "18:00",
-          photos: "/uploads/photo4.jpg",
-        },
-        {
-          title: "The Alps Adventure",
-          description: "Hiking the Swiss Alps",
-          location_id: 5,
-          user_id: 5,
-          categories_id: 3,
-          address: "Zermatt, Switzerland",
-          open_time: "07:00",
-          close_time: "19:00",
-          photos: "/uploads/photo5.jpg",
-        },
-        {
-          title: "Street Food in Bangkok",
-          description: "Top street foods to try",
-          location_id: 6,
-          user_id: 1,
-          categories_id: 1,
-          address: "Bangkok, Thailand",
-          open_time: "10:00",
-          close_time: "22:00",
-          photos: "/uploads/photo6.jpg",
-        },
-        {
-          title: "Santorini Sunsets",
-          description: "Best spots for sunsets",
-          location_id: 1,
-          user_id: 2,
-          categories_id: 2,
-          address: "Oia, Santorini",
-          open_time: "15:00",
-          close_time: "23:00",
-          photos: "/uploads/photo7.jpg",
-        },
-        {
-          title: "Amazon Rainforest",
-          description: "Wildlife and adventures",
-          location_id: 2,
-          user_id: 3,
-          categories_id: 3,
-          address: "Amazon Basin, Brazil",
-          open_time: "05:00",
-          close_time: "17:00",
-          photos: "/uploads/photo8.jpg",
-        },
-        {
-          title: "Cultural Heritage in Rome",
-          description: "Exploring ancient ruins",
-          location_id: 3,
-          user_id: 4,
-          categories_id: 1,
-          address: "Colosseum, Rome",
-          open_time: "08:00",
-          close_time: "20:00",
-          photos: "/uploads/photo9.jpg",
-        },
-        {
-          title: "The Great Wall",
-          description: "History and views",
-          location_id: 4,
-          user_id: 5,
-          categories_id: 2,
-          address: "Beijing, China",
-          open_time: "07:00",
-          close_time: "19:00",
-          photos: "/uploads/photo10.jpg",
-        },
-      ];
-
-      const newBlogs = await Blog.bulkCreate(mockBlogs);
-      console.log("Blogs inserted successfully:", newBlogs);
-      return res
-        .status(201)
-        .json({ message: "Blogs inserted successfully", blogs: newBlogs });
-    } catch (err) {
-      console.error("Error inserting blogs:", err);
-      return res.status(500).json({ error: "Error inserting blogs" });
     }
   },
 };

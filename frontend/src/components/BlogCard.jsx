@@ -14,8 +14,10 @@ import {
   faPencilAlt,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 function BlogCard({
+  id,
   imgSrc,
   authorImg,
   authorName,
@@ -61,10 +63,33 @@ function BlogCard({
     setComment(e.target.value);
   };
 
-  const handleCommentSubmit = () => {
+  const handleCommentSubmit = async () => {
     setSubmittedComment(comment);
     setComment("");
-    setIsCommenting(false);
+    const token = localStorage.getItem("token");
+    try {
+      const userResponse = await axios.get(`${API.BASE_URL}/api/auth/init`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const response = await axios.post(
+        `${API.BASE_URL}/api/comments`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          blog_id: id,
+          user_id: userResponse.data.id,
+          content: comment,
+        }
+      );
+      setIsCommenting(false);
+    } catch (error) {
+      console.error("Error submitting comment:", error);
+    }
   };
 
   const handleRatingClick = (index) => {
@@ -96,10 +121,19 @@ function BlogCard({
     setShowMenu(false);
   };
 
+  const locationVals = {
+    1: "Province 1",
+    2: "Province 2",
+    3: "Province 3",
+    4: "Province 4",
+    5: "Province 5",
+    6: "Province 6",
+  };
+  const locationVal = locationVals[location.toString()];
+
   return (
     <article className={styles.blogCard}>
       <div className={styles.blogContent}>
-        {console.log(`${API.BASE_URL}${imgSrc}`)}
         <img
           src={`${API.BASE_URL}/${imgSrc}`}
           alt={title}
@@ -211,7 +245,7 @@ function BlogCard({
                   <div className={styles.blogBody}>
                     <div className={styles.locationInfo}>
                       <FontAwesomeIcon icon={faMapMarkerAlt} />
-                      <span>{location}</span>
+                      <span>{locationVal}</span>
                     </div>
                     <h2 className={styles.blogTitle}>{title}</h2>
                     <p className={styles.blogDescription}>{description}</p>

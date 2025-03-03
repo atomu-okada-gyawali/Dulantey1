@@ -7,8 +7,6 @@ config();
 
 import userRoutes from "./routes/user.routes.js";
 import errorHandler from "./middleware/errorHandler.js";
-// import categoriesRoutes from "./routes/categories.routes.js"; // Import categories routes
-// import locationRoutes from "./routes/location.routes.js"; // Import location routes
 import blogRoutes from "./routes/blogs.routes.js";
 import reviewRoutes from "./routes/review.routes.js";
 import commentRoutes from "./routes/comment.routes.js";

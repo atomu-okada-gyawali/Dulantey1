@@ -6,24 +6,21 @@ import Sidebar from "./SideBar";
 
 import styles from "./BrowsePage.module.css";
 import { API } from "../environment";
+
 function BrowsePage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [blogcount, setBlogCount] = useState(-1);
 
   const [blogs, setBlogs] = useState([]);
+  const [error, setError] = useState(null); // State for error handling
 
-  const loadMoreBlogs = () => {
-    setBlogCount((prevCount) => prevCount + 5); // Increment blogcount by 5
-  };
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     const fetchBlogs = async () => {
       try {
-        console.log(`${API.BASE_URL}/api/blogs/get5Blogs/${blogcount}`)
-        const response = await axios.get(
-          `${API.BASE_URL}/api/blogs/get5Blogs/${blogcount}`,
 
+        const response = await axios.get(
+          `${API.BASE_URL}/api/blogs/getAllBlogs/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -32,6 +29,7 @@ function BrowsePage() {
         );
 
         const formattedBlogs = response.data.map((rawdatum) => ({
+          id: rawdatum.id,
           imgSrc: rawdatum.photos,
           authorImg: rawdatum.User.profile,
           authorName: rawdatum.User.username,
@@ -40,14 +38,17 @@ function BrowsePage() {
           title: rawdatum.title,
           description: rawdatum.description,
         }));
-        setBlogs((prevBlogs) => [...prevBlogs, ...formattedBlogs]); // Append new blogs to existing state
+
+        setBlogs(formattedBlogs);
+        console.log(blogs)
       } catch (error) {
         console.error("Error fetching blogs:", error);
+        setError("Failed to load blogs. Please try again later."); // Set error message
       }
     };
 
     fetchBlogs();
-  }, [blogcount]);
+  }, []); 
 
   return (
     <div className={styles.browsePage}>
@@ -56,7 +57,7 @@ function BrowsePage() {
         <div className={styles.profileContainer}>
           <Link to="/profile">
             <img
-              src="./src/assets/tracyprofile.png"
+              src={"src/assets/tracyprofile.png"} // Updated to dynamic import
               alt="Profile"
               className={styles.profileImage}
             />
@@ -64,13 +65,13 @@ function BrowsePage() {
         </div>
 
         <div className={styles.blogsList}>
-          {blogs.map((blog, index) => (
-            <BlogCard key={index} {...blog} />
+          {error && <p className={styles.error}>{error}</p>} {/* Display error message */}
+          {blogs.map((blog) => (
+            <BlogCard key={blog.id} {...blog} />
           ))}
 
-          <button className={styles.loadMoreButton} onClick={loadMoreBlogs}>
-            Load More
-          </button>
+
+
         </div>
       </div>
     </div>
