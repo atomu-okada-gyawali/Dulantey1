@@ -9,7 +9,7 @@ import { API } from "../environment";
 
 function BrowsePage() {
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [profileData,setProfileData] = useState({});
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState(null); // State for error handling
 
@@ -46,6 +46,33 @@ function BrowsePage() {
         setError("Failed to load blogs. Please try again later."); // Set error message
       }
     };
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Retrieve token from local storage
+        const initresponse = await axios.get(`${API.BASE_URL}/api/auth/init`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(JSON.stringify(initresponse))
+        const userResponse = await axios.get(
+          `${API.BASE_URL}/api/users/${initresponse.data.data.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setProfileData({
+          username: userResponse.data.username,
+          fullName: userResponse.data.fullname,
+          profileImage: userResponse.data.profile,
+        }); // Set profile data with response data
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchUserData();
 
     fetchBlogs();
   }, []); 
@@ -57,7 +84,7 @@ function BrowsePage() {
         <div className={styles.profileContainer}>
           <Link to="/profile">
             <img
-              src={"src/assets/tracyprofile.png"} // Updated to dynamic import
+              src={`${API.BASE_URL}/${profileData.profileImage}`} // Updated to dynamic import
               alt="Profile"
               className={styles.profileImage}
             />

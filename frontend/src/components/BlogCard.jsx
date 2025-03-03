@@ -180,7 +180,7 @@ function BlogCard({
                         <Link to="/profile" className={styles.authorNameLink}>
                           <h3 className={styles.authorName}>{authorName}</h3>
                         </Link>
-                        <p className={styles.postDate}>{date}</p>
+                        <p className={styles.postDate}>{date.split("T")[0]}</p>
                       </div>
                     </div>
                     <div className={styles.blogActions}>

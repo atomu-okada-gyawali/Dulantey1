@@ -84,25 +84,33 @@ const UserController = {
   updateUser: async (req, res) => {
     const { password, full_name, email, username, photo } = req.body;
     const { id } = req.params;
+  
     try {
-      const result = await User.update(
-        {
-          full_name: full_name,
-          email: email,
-          password: password,
-          username: username,
-          profile: photo,
-        },
-        {
-          where: {
-            id: id,
-          },
-        }
-      );
+      // Fetch existing user data
+      const existingUser = await User.findOne({ where: { id: id } });
+      if (!existingUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      // Create an object for the update
+      const updatedData = {
+        full_name: full_name !== undefined ? full_name : existingUser.full_name,
+        email: email !== undefined ? email : existingUser.email,
+        password: password !== undefined ? password : existingUser.password,
+        username: username !== undefined ? username : existingUser.username,
+        profile: req.file ? req.file.filename : existingUser.profile, // Use the filename from multer
+      };
+      
+
+  
+      // Perform the update
+      const result = await User.update(updatedData, {
+        where: { id: id },
+      });
+  
       if (result[0] === 0) {
         return console.log("No user found to update");
       }
-      res.status(201).json(result); // Return the created user
+      res.status(201).json(result); // Return the updated user
       console.log("User updated successfully");
     } catch (err) {
       console.error(err.message);

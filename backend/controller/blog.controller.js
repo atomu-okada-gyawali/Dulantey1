@@ -102,16 +102,13 @@ const blogController = {
     try {
       const user_id = req.params.id;
       const blogs = await Blog.findAll({
+        where: { user_id: user_id },
         include: [
           {
             model: User,
             attributes: ["id", "username", "email", "profile"], // Include specific user fields
           },
-          {
-            where: {
-              id: user_id,
-            },
-          },
+
         ],
       });
       return res.status(200).json(blogs); // Send the list of blogs as a response

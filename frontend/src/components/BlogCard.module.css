@@ -14,6 +14,7 @@
     justify-content: center;
 }
 
+
 .imageSection {
     flex: 0 0 50%;
     width: 50%;
@@ -21,7 +22,8 @@
 }
 
 .blogImage {
-    height: 16rem;
+    width:300px;
+    height: 200px;
     object-fit: cover;
     margin-right: 4rem;
     cursor: pointer;
@@ -402,6 +404,7 @@
         flex-direction: column;
         align-items: center;
     }
+
 
     .imageSection {
         width: 100%;

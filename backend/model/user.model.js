@@ -30,7 +30,7 @@ User.init(
     },
 
     profile: {
-      type: DataTypes.STRING, // `BYTEA` maps to BLOB
+      type: DataTypes.STRING(255), 
       allowNull: true,
     },
   },
