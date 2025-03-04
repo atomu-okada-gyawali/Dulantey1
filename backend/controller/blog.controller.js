@@ -79,6 +79,7 @@ const blogController = {
 
   //retrive all
   get10Blogs: async (req, res) => {
+  
     try {
       const page = parseInt(req.query.page) || 1; // Get the page number from query params (default: 1)
       const limit = 10; // Number of blogs per page
@@ -96,6 +97,29 @@ const blogController = {
       return res.status(500).json({ error: "Error fetching blogs" });
     }
   },
+    //retrive all (self profile view)
+    get10BlogsSelf: async (req, res) => {
+      const user_id = req.params.id;
+      try {
+        const page = parseInt(req.query.page) || 1; // Get the page number from query params (default: 1)
+        const limit = 10; // Number of blogs per page
+        const offset = (page - 1) * limit; // Calculate offset
+  
+        const blogs = await Blog.findAll({
+          order: [["createdAt", "DESC"]], // Sort by newest blogs first
+          limit,
+          offset, // Skip the previous pages
+        },
+      {where:{
+        user_id:user_id;
+      }});
+  
+        return res.status(200).json(blogs);
+      } catch (err) {
+        console.error("Error fetching Blogs:", err.stack);
+        return res.status(500).json({ error: "Error fetching blogs" });
+      }
+    },
 
   // retrive by id
   getBlogsById: async (req, res) => {
