@@ -10,27 +10,21 @@ import CreateBlog from "./components/CreateBlog";
 import Home from "./components/HomePage";
 import RootLayout from "./layout/root-layout";
 import { lazy } from "react";
-
-import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import BrowsePage from './components/BrowsePage';
-import Profile from './components/Profile';
-import CreateBlog from './components/CreateBlog';
-import Login from './authcomponents/Login'
 // Lazy load authentication components
 const SignUp = lazy(() => import("./authcomponents/SignUp"));
-const LoadingFallback = () => (
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      height: "100vh",
-    }}
-  >
-    Loading...
-  </div>
-);
+// const LoadingFallback = () => (
+//   <div
+//     style={{
+//       display: "flex",
+//       justifyContent: "center",
+//       alignItems: "center",
+//       height: "100vh",
+//     }}
+//   >
+//     Loading...
+//   </div>
+// );
+
 
 function App() {
   return (

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import one from "../assets/home-page/1.png";
 import two from "../assets/home-page/2.jpg";
 import three from "../assets/home-page/3.jpg";
@@ -6,12 +5,8 @@ import three from "../assets/home-page/3.jpg";
 export default function HomePage() {
   return (
     <main className="flex relative md:pl-60">
-      <Link
-        to="/profile"
-        className="bg-white shadow-sm rounded-full p-2 absolute top-8 right-8"
-      >
-        <img src={one} className="size-10 rounded-full bg-red-100" />
-      </Link>
+
+
       <section className="flex justify-center gap-20 px-20 flex-col md:flex-row">
         <aside className="w-full flex gap-8 flex-col pt-40">
           <h1 className="font-bold leading-10 text-5xl inter">
