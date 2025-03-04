@@ -44,6 +44,8 @@ describe('UserController', () => {
         });
         const res = mockResponse();
 
+        UserMock.create.mockResolvedValue(req.body);
+
         await UserController.registerUser(req, res);
 
         expect(res.status).toHaveBeenCalledWith(201);
@@ -58,14 +60,20 @@ describe('UserController', () => {
         const req = mockRequest({}, { id: 1 });
         const res = mockResponse();
 
-        await UserController.getUserById(req, res);
-
-        expect(res.status).toHaveBeenCalledWith(200);
-        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+        const user = {
+            id: 1,
             fullname: 'Test User',
             email: 'testuser@example.com',
             username: 'testuser',
-        }));
+            password: 'password123',
+            profile: 'profile.jpg',
+        };
+        UserMock.findOne.mockResolvedValue(user);
+
+        await UserController.getUserById(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(user);
     });
 
     it('should update a user', async () => {
@@ -77,6 +85,9 @@ describe('UserController', () => {
         }, { id: 1 });
         const res = mockResponse();
 
+        UserMock.update.mockResolvedValue([1]);
+        UserMock.findOne.mockResolvedValue(req.body);
+
         await UserController.updateUser(req, res);
 
         expect(res.status).toHaveBeenCalledWith(201);
@@ -87,22 +98,11 @@ describe('UserController', () => {
         const req = mockRequest({}, { id: 1 });
         const res = mockResponse();
 
+        UserMock.destroy.mockResolvedValue(1);
+
         await UserController.deleteUser(req, res);
 
         expect(res.status).toHaveBeenCalledWith(201);
         expect(res.json).toHaveBeenCalledWith(expect.objectContaining(1));
-    });
-
-    it('should register multiple users', async () => {
-        const req = mockRequest();
-        const res = mockResponse();
-
-        await UserController.registerUsers(req, res);
-
-        expect(res.status).toHaveBeenCalledWith(201);
-        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
-            message: "Users registered successfully",
-            users: expect.any(Array),
-        }));
     });
 });

@@ -1,35 +1,14 @@
-import SequelizeMock from 'sequelize-mock';
-import blogController from '../controller/blog.controller.js';
+import { create, update, delete as deleteBlog, getAllBlogs, getBlogsById } from '../controller/blog.controller.js';
+import Blog from '../model/blog.model.js';
 
-// Setup the mock database connection
-const DBConnectionMock = new SequelizeMock();
-
-// Mock the User model
-const UserMock = DBConnectionMock.define('User', {
-    id: 1,
-    full_name: 'Test User',
-    email: 'testuser@example.com',
-    username: 'testuser',
-    password: 'password123',
-});
-
-// Mock the Blog model
-const BlogMock = DBConnectionMock.define('Blog', {
-    id: 1,
-    title: 'Test Blog',
-    photos: 'test.jpg',
-    description: 'This is a test blog',
-    shares_count: 10,
-    user_id: 1,
-    categories_id: 1,
-    location_id: 1,
-    address: '123 Test St',
-    open_time: '09:00:00',
-    close_time: '17:00:00',
-});
-
-// Define associations
-BlogMock.belongsTo(UserMock, { foreignKey: 'user_id' });
+// Mock the Blog model methods
+jest.mock('../model/blog.model.js', () => ({
+    create: jest.fn(),
+    findAll: jest.fn(),
+    findOne: jest.fn(),
+    update: jest.fn(),
+    destroy: jest.fn(),
+}));
 
 // Mock the request and response objects
 const mockRequest = (body = {}, params = {}, file = null) => ({
@@ -60,7 +39,9 @@ describe('blogController', () => {
         }, {}, { path: 'test.jpg' });
         const res = mockResponse();
 
-        await blogController.create(req, res);
+        Blog.create.mockResolvedValue(req.body);
+
+        await create(req, res);
 
         expect(res.status).toHaveBeenCalledWith(201);
         expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
@@ -90,7 +71,10 @@ describe('blogController', () => {
         }, { id: 1 });
         const res = mockResponse();
 
-        await blogController.update(req, res);
+        Blog.update.mockResolvedValue([1]);
+        Blog.findOne.mockResolvedValue(req.body);
+
+        await update(req, res);
 
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
@@ -110,41 +94,61 @@ describe('blogController', () => {
         const req = mockRequest({}, { id: 1 });
         const res = mockResponse();
 
-        await blogController.delete(req, res);
+        Blog.destroy.mockResolvedValue(1);
+
+        await deleteBlog(req, res);
 
         expect(res.status).toHaveBeenCalledWith(200);
-        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
-            message: 'Blog deleted successfully',
-        }));
+        expect(res.json).toHaveBeenCalledWith({ message: 'Blog deleted successfully' });
     });
 
     it('should get all blogs', async () => {
         const req = mockRequest();
         const res = mockResponse();
 
-        await blogController.getAllBlogs(req, res);
+        const blogs = [{
+            id: 1,
+            title: 'Test Blog',
+            photos: 'test.jpg',
+            description: 'This is a test blog',
+            shares_count: 10,
+            user_id: 1,
+            categories_id: 1,
+            location_id: 1,
+            address: '123 Test St',
+            open_time: '09:00:00',
+            close_time: '17:00:00',
+        }];
+        Blog.findAll.mockResolvedValue(blogs);
+
+        await getAllBlogs(req, res);
 
         expect(res.status).toHaveBeenCalledWith(200);
-        expect(res.json).toHaveBeenCalledWith(expect.any(Array));
+        expect(res.json).toHaveBeenCalledWith(blogs);
     });
 
     it('should get a blog by ID', async () => {
         const req = mockRequest({}, { id: 1 });
         const res = mockResponse();
 
-        await blogController.getBlogsById(req, res);
-
-        expect(res.status).toHaveBeenCalledWith(200);
-        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+        const blog = {
+            id: 1,
             title: 'Test Blog',
             photos: 'test.jpg',
             description: 'This is a test blog',
-            location_id: 1,
+            shares_count: 10,
             user_id: 1,
             categories_id: 1,
+            location_id: 1,
             address: '123 Test St',
             open_time: '09:00:00',
             close_time: '17:00:00',
-        }));
+        };
+        Blog.findOne.mockResolvedValue(blog);
+
+        await getBlogsById(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(blog);
     });
 });
