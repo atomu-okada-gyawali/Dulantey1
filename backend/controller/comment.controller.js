@@ -1,4 +1,5 @@
 import Comment from "../model/comment.model.js";
+import User from "../model/user.model.js";
 const commentController = {
   create: async (req, res) => {
     try {
@@ -17,21 +18,22 @@ const commentController = {
   },
   getComments: async (req, res) => {
     try {
-      const blog_id = req.params.blog_id;
-      const comments = await Comment.findAll({
-        where: { blog_id: blog_id },
-        include: [
-          {
-            model: User,
-            attributes: ["username", "profile"],
-          },
-        ],
-      });
-      console.log("Comment created:", comments); // Log the created Comment
-      return res.status(201).json(comments); // Send the created Comment as a response
+        const blog_id = req.params.blog_id;
+        const comments = await Comment.findAll({
+            where: { blog_id: blog_id },
+            include: [
+                {
+                    model: User,
+                    attributes: ["username", "profile"],
+                },
+            ],
+        });
+        console.log(`Comments retrieved for blog ID ${blog_id}:`, comments); // More informative log
+        return res.status(200).json(comments); // Use 200 for successful retrieval
     } catch (err) {
-      return res.status(500).json({ error: "Error creating Comment" }); // Send error response
+        console.error("Error getting comments:", err); // Log the error for debugging
+        return res.status(500).json({ error: "Error getting comments" }); // More descriptive error response
     }
-  },
+}
 };
 export default commentController;

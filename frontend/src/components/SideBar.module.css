@@ -1,258 +1,259 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap");
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .container {
+  height: 100vh;
   position: relative;
 }
 
 .sidebar {
-    width: 16rem;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 1px 0 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    z-index: 1000;
+  width: 16rem;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 0 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
 }
 
 .sidebarOpen {
-    transform: translateX(0);
+  transform: translateX(0);
 }
 
 .sidebarClose {
-    transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 
 .toggleButton {
-    position: fixed;
-    left: 0;
-    top: 1rem;
-    z-index: 999;
-    background: white;
-    border: none;
-    border-radius: 8px;
-    padding: 0.75rem;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: none;
+  position: fixed;
+  left: 0;
+  top: 1rem;
+  z-index: 999;
+  background: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: none;
 }
 
 .closeButton {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    background: transparent;
-    border: none;
-    font-size: 1.25rem;
-    cursor: pointer;
-    color: #666;
-    display: none;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: #666;
+  display: none;
 }
 
 .toggleButton:hover,
 .closeButton:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .logoContainer {
-    padding: 1.5rem;
-    text-align: center;
-    border-bottom: 1px solid #f3f4f6;
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .logoContainer img {
-    height: auto;
-    width: 70%;
-    max-width: 150px;
+  height: auto;
+  width: 70%;
+  max-width: 150px;
 }
 
 .logo {
-    width: 3.25rem;
-    height: 3.25rem;
-    margin-bottom: 0.90rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.9rem;
 }
 
 .nav {
-    flex: 1;
-    padding: 1.5rem 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  flex: 1;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .navItem {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    color: #374151;
-    text-decoration: none;
-    border-radius: 0.5rem;
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: #374151;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
 }
 
 .navItem:hover {
-    background-color: #e9f5fe;
-    color: #2563eb;
+  background-color: #e9f5fe;
+  color: #2563eb;
 }
 
 .navItem.active {
-    background-color: #e9f5fe;
-    color: #2563eb;
-    font-weight: 500;
+  background-color: #e9f5fe;
+  color: #2563eb;
+  font-weight: 500;
 }
 
 .navItem.active svg {
-    color: #2563eb;
+  color: #2563eb;
 }
 
 .navText {
-    margin-left: 0.75rem;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.95rem;
+  margin-left: 0.75rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95rem;
 }
 
 .addBlogBtn {
-    width: 100%;
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1rem;
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s;
-    text-decoration: none;
-    cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .addBlogBtn:hover {
-    background-color: #e9f5fe;
-    color: #000000;
+  background-color: #e9f5fe;
+  color: #000000;
 }
 
 .addIcon {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-bottom: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .btnText {
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    font-size: 1.125rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  font-size: 1.125rem;
 }
 
 .categorySelect {
-    margin-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .categoryDropdown {
-    width: 100%;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    font-family: 'Poppins', sans-serif;
-    color: #6b7280;
-    cursor: pointer;
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-family: "Poppins", sans-serif;
+  color: #6b7280;
+  cursor: pointer;
 }
 
 .logoutBtnContainer {
-    padding: 1rem;
-    margin-top: 180px;
-    position: relative;
-    margin-bottom: 40px;
+  padding: 1rem;
+  margin-top: 180px;
+  position: relative;
+  margin-bottom: 40px;
 }
 
 .logoutBtn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.30rem 1rem;
-    border: none;
-    background-color: #17a0d4;
-    color: white;
-    border-radius: 0.5rem;
-    gap: 5px;
-    cursor: pointer;
-    transition: background-color 0.5s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem 1rem;
+  border: none;
+  background-color: #17a0d4;
+  color: white;
+  border-radius: 0.5rem;
+  gap: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s;
 }
 
 .logoutBtn span {
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
 }
 
 .logoutBtn:hover {
-    background-color: #10779e;
+  background-color: #10779e;
 }
 
 .logoutIcon {
-    width: 2rem;
-    height: 2rem;
+  width: 2rem;
+  height: 2rem;
 }
 
 .burger {
-    display: none;
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    font-size: 2rem;
-    cursor: pointer;
+  display: none;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
 }
 
 .cross {
-    left: auto;
-    right: 1rem;
+  left: auto;
+  right: 1rem;
 }
 
 @media (max-width: 768px) {
-    .sidebar {
-        transform: translateX(-100%);
-    }
-    
-    .sidebarOpen {
-        transform: translateX(0);
-    }
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
 }
 
 @media (max-width: 800px) {
-    .sidebar {
-        width: 100%;
-        max-width: 300px;
-    }
+  .sidebar {
+    width: 100%;
+    max-width: 300px;
+  }
 
-    .toggleButton {
-        display: block;
-    }
+  .toggleButton {
+    display: block;
+  }
 
-    .closeButton {
-        display: block;
-    }
+  .closeButton {
+    display: block;
+  }
 
-    .sidebarClose {
-        box-shadow: none;
-    }
+  .sidebarClose {
+    box-shadow: none;
+  }
 
-    .sidebarOpen {
-        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
-    }
+  .sidebarOpen {
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  }
 
-    .logoContainer {
-        padding-top: 3.5rem;
-    }
+  .logoContainer {
+    padding-top: 3.5rem;
+  }
 }

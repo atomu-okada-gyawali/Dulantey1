@@ -41,4 +41,5 @@ User.init(
     timestamps: true, // Set to true if you have `createdAt` and `updatedAt`
   }
 );
+
 export default User;

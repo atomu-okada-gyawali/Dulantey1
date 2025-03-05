@@ -9,7 +9,7 @@ import { API } from "../environment";
 
 function BrowsePage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [profileData,setProfileData] = useState({});
+  const [profileData, setProfileData] = useState({});
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState(null); // State for error handling
 
@@ -18,6 +18,12 @@ function BrowsePage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
+        const token = localStorage.getItem("token"); // Retrieve token from local storage
+        const initresponse = await axios.get(`${API.BASE_URL}/api/auth/init`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         const response = await axios.get(
           `${API.BASE_URL}/api/blogs/getAllBlogs/`,
@@ -28,7 +34,8 @@ function BrowsePage() {
           }
         );
 
-        const formattedBlogs = response.data.map((rawdatum) => ({
+        const formattedBlogs = response.data.map((rawdatum) => {
+          return{
           id: rawdatum.id,
           imgSrc: rawdatum.photos,
           authorImg: rawdatum.User.profile,
@@ -37,10 +44,11 @@ function BrowsePage() {
           location: rawdatum.location_id,
           title: rawdatum.title,
           description: rawdatum.description,
-        }));
+          isOwnBlog: initresponse.data.data.id == rawdatum.User.id,
+        }});
 
         setBlogs(formattedBlogs);
-        console.log(blogs)
+        console.log(blogs);
       } catch (error) {
         console.error("Error fetching blogs:", error);
         setError("Failed to load blogs. Please try again later."); // Set error message
@@ -54,7 +62,7 @@ function BrowsePage() {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(JSON.stringify(initresponse))
+        console.log(JSON.stringify(initresponse));
         const userResponse = await axios.get(
           `${API.BASE_URL}/api/users/${initresponse.data.data.id}`,
           {
@@ -63,6 +71,7 @@ function BrowsePage() {
             },
           }
         );
+
         setProfileData({
           username: userResponse.data.username,
           fullName: userResponse.data.fullname,
@@ -75,7 +84,7 @@ function BrowsePage() {
     fetchUserData();
 
     fetchBlogs();
-  }, []); 
+  }, []);
 
   return (
     <div className={styles.browsePage}>
@@ -84,7 +93,7 @@ function BrowsePage() {
         <div className={styles.profileContainer}>
           <Link to="/profile">
             <img
-              src={`${API.BASE_URL}/${profileData.profileImage}`} // Updated to dynamic import
+              src={`${API.BASE_URL}/uploads/${profileData.profileImage}`} // Updated to dynamic import
               alt="Profile"
               className={styles.profileImage}
             />
@@ -92,13 +101,11 @@ function BrowsePage() {
         </div>
 
         <div className={styles.blogsList}>
-          {error && <p className={styles.error}>{error}</p>} {/* Display error message */}
+          {error && <p className={styles.error}>{error}</p>}{" "}
+          {/* Display error message */}
           {blogs.map((blog) => (
             <BlogCard key={blog.id} {...blog} />
           ))}
-
-
-
         </div>
       </div>
     </div>

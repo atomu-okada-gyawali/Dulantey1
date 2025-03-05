@@ -6,8 +6,7 @@ import upload from "../middleware/multerConfig.js";
 
 // router.get("/registration", );
 router.post("/createBlog", upload.single("photo"), blogController.create);
-
-router.put("/updateBlog/:id", blogController.update);
+router.put("/updateBlog/:id", upload.single("photo"), blogController.update);
 router.delete("/deleteBlog/:id", blogController.delete);
 router.get("/getAllBlogs", blogController.getAllBlogs);
 router.get("/getBlogById/:id", blogController.getBlogsById);
