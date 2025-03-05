@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import styles from "./SideBar.module.css";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faNewspaper, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHome,
+  faNewspaper,
+  faBars,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(window.innerWidth > 800);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -16,17 +23,14 @@ function SideBar() {
       setIsOpen(width > 800);
     };
 
+    window.addEventListener("resize", handleResize);
 
-    window.addEventListener('resize', handleResize);
-
-
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-
 
   const isOnBlogsPage = true;
 
@@ -41,7 +45,11 @@ function SideBar() {
           <FontAwesomeIcon icon={faBars} />
         </button>
       )}
-      <aside className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : styles.sidebarClose}`}>
+      <aside
+        className={`${styles.sidebar} ${
+          isOpen ? styles.sidebarOpen : styles.sidebarClose
+        }`}
+      >
         {isMobile && (
           <button
             className={styles.closeButton}
@@ -52,19 +60,32 @@ function SideBar() {
           </button>
         )}
         <div className={styles.logoContainer}>
-          <img src="src/assets/logo.jpg" alt="Dulantey" className={styles.logo} />
+          <img
+            src="src/assets/logo.jpg"
+            alt="Dulantey"
+            className={styles.logo}
+          />
         </div>
         <nav className={styles.nav}>
           <Link to="/" className={styles.navItem}>
             <FontAwesomeIcon icon={faHome} />
             <span className={styles.navText}>Home</span>
           </Link>
-          <Link to="/blogs" className={`${styles.navItem} ${isOnBlogsPage ? styles.active : ''}`}>
+          <Link
+            to="/blogs"
+            className={`${styles.navItem} ${
+              isOnBlogsPage ? styles.active : ""
+            }`}
+          >
             <FontAwesomeIcon icon={faNewspaper} />
             <span className={styles.navText}>Blogs</span>
           </Link>
           <Link to="/createBlog" className={styles.addBlogBtn}>
-            <img src="src/assets/add.png" alt="add blog" className={styles.addIcon} />
+            <img
+              src="src/assets/add.png"
+              alt="add blog"
+              className={styles.addIcon}
+            />
             <span className={styles.btnText}>Add Blog</span>
           </Link>
           <div className={styles.categorySelect}>
@@ -77,8 +98,19 @@ function SideBar() {
           </div>
         </nav>
         <div className={styles.logoutBtnContainer}>
-          <button className={styles.logoutBtn}>
-            <img src="src/assets/logout.png" alt="logout" className={styles.logoutIcon} />
+          <button
+            className={styles.logoutBtn}
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("currentUser");
+              navigate("/Login");
+            }}
+          >
+            <img
+              src="src/assets/logout.png"
+              alt="logout"
+              className={styles.logoutIcon}
+            />
             <span className={styles.btnText}>Logout</span>
           </button>
         </div>

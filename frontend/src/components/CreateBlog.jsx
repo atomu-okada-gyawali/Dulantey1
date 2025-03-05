@@ -13,7 +13,7 @@ const CreateBlog = () => {
     formState: { errors },
     reset,
   } = useForm();
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -113,15 +113,6 @@ const CreateBlog = () => {
     <div className={styles.pageContainer}>
       <SideBar />
       <div className={styles.mainContent}>
-        <header className={styles.header}>
-          <h2 className={styles.headerTitle}>Create New Blog</h2>
-          <img
-            src="./src/assets/profile.png"
-            alt="Profile"
-            className={styles.profile}
-          />
-        </header>
-
         <div className={styles.container}>
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.imageUpload}>

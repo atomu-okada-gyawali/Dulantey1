@@ -15,6 +15,8 @@ body {
   padding: 1.5rem;
   display: flex;
   width: 100%;
+  /* margin-top: 300px; */
+ 
   flex-direction: column;
   min-height: 100vh;
 }
@@ -46,17 +48,21 @@ body {
   top: 1rem;
   right: 2rem;
   z-index: 100;
+  height: 2.5rem;
+  width: 2.5rem;
   display: flex;
   justify-content: flex-end;
   padding: 1rem;
+  /* box-shadow: 2px 4px 4px 4px ; */
 }
 
 .profileImage {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
+  
   cursor: pointer;
-  border: 2px solid #e5e7eb;
+  border: 2px solid #9ba5bb;
   transition: transform 0.2s;
 }
 
@@ -65,7 +71,7 @@ body {
 }
 
 .blogsList {
-  max-width: 80rem;
+  width: 80rem;
   margin: 4rem auto 2rem auto;
   display: flex;
   flex-direction: column;

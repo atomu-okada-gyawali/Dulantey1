@@ -160,9 +160,6 @@ body {
     font-size: 16px;
     pointer-events: none;
     font-weight: 500;
-}
-
-input:focus ~ label {
     top: 20px;
     left: 15px;
     font-size: 14px;
@@ -171,6 +168,16 @@ input:focus ~ label {
     background: white;
     transition: 0.3s ease;
 }
+
+/* input:focus ~ label {
+    top: 20px;
+    left: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 2px;
+    background: white;
+    transition: 0.3s ease;
+} */
 
 
 .inputField .errorMessage{

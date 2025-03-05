@@ -224,7 +224,7 @@ const handleRatingClick = async (index) => {
                     <div className={styles.authorInfo}>
                       <Link to="/profile">
                         <img
-                          src={`${API.BASE_URL}/uploads/${authorImg}`}
+                          src={authorImg?`${API.BASE_URL}/uploads/${authorImg}`:'../assets/placeholder.jpg'}
                           alt="Author"
                           className={styles.authorImage}
                         />
