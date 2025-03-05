@@ -1,12 +1,3 @@
-// //editBlog()
-// //getBlogs(num,filter)
-// //getBlogById(id)
-// //getShareCount()
-// //setShareCount()
-// //setAvgReview()
-
-// //deleteBlog()
-// //flagBlog()
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database.js"; // Ensure you have a Sequelize instance
 import User from "./user.model.js"; // Import User model for association
@@ -19,34 +10,27 @@ Blog.init(
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
+      primaryKey: true,autoIncrement: true,
     },
     title: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
+      type: DataTypes.STRING(255),allowNull: false,
     },
     photos: {
-      type: DataTypes.STRING, // `BYTEA` maps to BLOB
-      allowNull: true,
+      type: DataTypes.STRING,allowNull: true,
     },
     description: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
+      type: DataTypes.STRING(255),allowNull: false,
     },
 
     shares_count: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
+      type: DataTypes.INTEGER,allowNull: true,
     },
     user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.INTEGER,allowNull: false,
       references: {
         model: "user",
         key: "id",
-      },
-      onDelete: "CASCADE",
+      },onDelete: "CASCADE",
     },
     categories_id: {
       type: DataTypes.INTEGER,
@@ -54,22 +38,16 @@ Blog.init(
       references: {
         model: "categories",
         key: "id",
-      },
-      onDelete: "CASCADE",
+      },onDelete: "CASCADE",
     },
     location_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.INTEGER,allowNull: false,
       references: {
         model: "location",
-        key: "id",
-      },
-      onDelete: "CASCADE",
+        key: "id",},onDelete: "CASCADE",
     },
     address: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
+      type: DataTypes.STRING(255),allowNull: false,},
     open_time: {
       type: DataTypes.TIME,
       allowNull: false,

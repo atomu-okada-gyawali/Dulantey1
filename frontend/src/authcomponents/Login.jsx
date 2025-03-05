@@ -34,7 +34,7 @@ const Login = () => {
       console.log("User logged in successfully:", response.data);
       toast.success("login successful");
       localStorage.setItem("token", response.data.data.access_token);
-      navigate("/");
+      navigate("/browse");
       // Handle successful login, e.g., store token, redirect, etc.
     } catch (error) {
       console.error("Error logging in user:", error);

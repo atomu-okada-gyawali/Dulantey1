@@ -3,7 +3,6 @@ import sequelize from "../database.js";
 import User from "./user.model.js"; // Import User model for association
 import Blog from "./blog.model.js"; // Import Blog model for association
 class Comment extends Model {}
-
 Comment.init(
   {
     id: {

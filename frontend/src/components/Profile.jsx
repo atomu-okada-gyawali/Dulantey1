@@ -117,7 +117,7 @@ function Profile() {
         console.log("Profile deleted successfully:", response.data);
         localStorage.removeItem("currentUser");
         localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/");
       } catch (error) {
         console.error("Error deleting Profile:", error);
         setError("Failed to delete Profile. Please try again later.");

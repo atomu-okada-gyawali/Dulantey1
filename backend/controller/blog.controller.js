@@ -38,45 +38,60 @@ const blogController = {
   },
 
   // update
-update: async (req, res) => {
+  update: async (req, res) => {
     const { id } = req.params;
-    const { title, photo, desc, location, user_id, categories_id, address, open_time, close_time } = req.body;
+    const {
+      title,
+      photo,
+      desc,
+      location,
+      user_id,
+      categories_id,
+      address,
+      open_time,
+      close_time,
+    } = req.body;
 
     try {
-        // Fetch existing blog data
-        const existingBlog = await Blog.findOne({ where: { id: id } });
-        if (!existingBlog) {
-            return res.status(404).json({ message: "Blog not found" });
-        }
+      // Fetch existing blog data
+      const existingBlog = await Blog.findOne({ where: { id: id } });
+      if (!existingBlog) {
+        return res.status(404).json({ message: "Blog not found" });
+      }
 
-        // Create an object for the update
-        const updatedData = {
-            title: title !== undefined ? title : existingBlog.title,
-            photos: req.file ? "uploads/"+req.file.filename : existingBlog.photos, // Use the filename from multer
-            description: desc !== undefined ? desc : existingBlog.description,
-            location_id: location !== undefined ? location : existingBlog.location_id,
-            user_id: user_id !== undefined ? user_id : existingBlog.user_id,
-            categories_id: categories_id !== undefined ? categories_id : existingBlog.categories_id,
-            address: address !== undefined ? address : existingBlog.address,
-            open_time: open_time !== undefined ? open_time : existingBlog.open_time,
-            close_time: close_time !== undefined ? close_time : existingBlog.close_time,
-        };
+      // Create an object for the update
+      const updatedData = {
+        title: title !== undefined ? title : existingBlog.title,
+        photos: req.file ? "uploads/" + req.file.filename : existingBlog.photos, // Use the filename from multer
+        description: desc !== undefined ? desc : existingBlog.description,
+        location_id:
+          location !== undefined ? location : existingBlog.location_id,
+        user_id: user_id !== undefined ? user_id : existingBlog.user_id,
+        categories_id:
+          categories_id !== undefined
+            ? categories_id
+            : existingBlog.categories_id,
+        address: address !== undefined ? address : existingBlog.address,
+        open_time: open_time !== undefined ? open_time : existingBlog.open_time,
+        close_time:
+          close_time !== undefined ? close_time : existingBlog.close_time,
+      };
 
-        // Perform the update
-        const result = await Blog.update(updatedData, {
-            where: { id: id },
-        });
+      // Perform the update
+      const result = await Blog.update(updatedData, {
+        where: { id: id },
+      });
 
-        if (result[0] === 0) {
-            return console.log("No blog found to update");
-        }
-        res.status(200).json(updatedData); // Return the updated blog
-        console.log("Blog updated successfully");
+      if (result[0] === 0) {
+        return console.log("No blog found to update");
+      }
+      res.status(200).json(updatedData); // Return the updated blog
+      console.log("Blog updated successfully");
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Server Error");
+      console.error(err.message);
+      res.status(500).send("Server Error");
     }
-},
+  },
 
   // delete
   delete: async (req, res) => {
@@ -101,6 +116,7 @@ update: async (req, res) => {
             attributes: ["id", "username", "email", "profile"], // Include specific user fields
           },
         ],
+        order: [["updatedAt", "DESC"]], // Sort by updatedAt in descending order
       });
       return res.status(200).json(blogs); // Send the list of blogs as a response
     } catch (err) {
@@ -108,6 +124,7 @@ update: async (req, res) => {
       return res.status(500).json({ error: "Error fetching blogs" }); // Send error response
     }
   },
+
   //retrive all (self profile view)
   getAllBlogsSelf: async (req, res) => {
     try {
@@ -119,8 +136,8 @@ update: async (req, res) => {
             model: User,
             attributes: ["id", "username", "email", "profile"], // Include specific user fields
           },
-
         ],
+        order: [["updatedAt", "DESC"]], // Sort by updatedAt in descending order
       });
       return res.status(200).json(blogs); // Send the list of blogs as a response
     } catch (err) {

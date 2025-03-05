@@ -67,12 +67,12 @@ function SideBar() {
           />
         </div>
         <nav className={styles.nav}>
-          <Link to="/" className={styles.navItem}>
+          <Link to="/home" className={styles.navItem}>
             <FontAwesomeIcon icon={faHome} />
             <span className={styles.navText}>Home</span>
           </Link>
           <Link
-            to="/blogs"
+            to="/browse"
             className={`${styles.navItem} ${
               isOnBlogsPage ? styles.active : ""
             }`}
@@ -103,7 +103,7 @@ function SideBar() {
             onClick={() => {
               localStorage.removeItem("token");
               localStorage.removeItem("currentUser");
-              navigate("/Login");
+              navigate("/");
             }}
           >
             <img

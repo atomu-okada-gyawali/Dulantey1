@@ -37,10 +37,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/" element={<BrowsePage />} />
+        <Route path="/browse" element={<BrowsePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/createBlog" element={<CreateBlog />} />
       </Routes>

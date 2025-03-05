@@ -3,9 +3,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../database.js"; // Ensure you have a Sequelize instance
 import User from "./user.model.js"; // Import User model for association
 import Blog from "./blog.model.js"; // Import Blog model for association
-
 class Review extends Model {}
-
 Review.init(
   {
     id: {

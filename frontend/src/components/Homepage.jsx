@@ -8,7 +8,7 @@ import styles from "./Homepage.module.css";
 export default function HomePage() {
   return (
     <main className={styles.mainContainer}>
-      <Link to="/login" className={styles.loginButton}>
+      <Link to="/" className={styles.loginButton}>
         Login
       </Link>
 
