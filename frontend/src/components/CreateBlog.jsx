@@ -6,6 +6,7 @@ import SideBar from "./SideBar";
 import { API } from "../environment";
 import useAuth from "../hooks/useAuth";
 
+
 const CreateBlog = () => {
   const {
     register,

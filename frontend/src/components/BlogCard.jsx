@@ -348,5 +348,18 @@ const handleRatingClick = async (index) => {
     </article>
   );
 }
+BlogCard.propTypes = {
+  imgSrc: PropTypes.string.isRequired,
+  authorImg: PropTypes.string.isRequired,
+  authorName: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  initialRating: PropTypes.number.isRequired,
+  isOwnBlog: PropTypes.bool.isRequired,
+  onUpdate: PropTypes.func,
+  onDelete: PropTypes.func,
+};
 
 export default BlogCard;
