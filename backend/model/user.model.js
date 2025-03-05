@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database.js";
-class User extends Model { }
+class User extends Model {}
 
 User.init(
   {
@@ -21,7 +21,7 @@ User.init(
     email: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      unique: false,
+      unique: true,
     },
     username: {
       type: DataTypes.STRING(255),
@@ -30,7 +30,7 @@ User.init(
     },
 
     profile: {
-      type: DataTypes.STRING, // `BYTEA` maps to BLOB
+      type: DataTypes.STRING(255), 
       allowNull: true,
     },
   },
@@ -41,4 +41,5 @@ User.init(
     timestamps: true, // Set to true if you have `createdAt` and `updatedAt`
   }
 );
+
 export default User;

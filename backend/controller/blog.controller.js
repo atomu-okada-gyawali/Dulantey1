@@ -1,24 +1,28 @@
 import Blog from "../model/blog.model.js";
-
+import User from "../model/user.model.js";
+import Review from "../model/review.model.js";
+import { Op } from "sequelize";
 const blogController = {
   create: async (req, res) => {
     try {
       const {
         title,
-        photo,
         desc,
-        location,
+        location_id,
         user_id,
         categories_id,
         address,
         open_time,
         close_time,
       } = req.body;
+
+      const photoPath = req.file ? req.file.path : null;
+
       const newBlog = await Blog.create({
         title: title,
-        photos: photo, // Ensure this is handled correctly if it's a file
+        photos: photoPath,
         description: desc,
-        location_id: location,
+        location_id: location_id,
         user_id: user_id,
         categories_id: categories_id,
         address: address,
@@ -34,35 +38,45 @@ const blogController = {
   },
 
   // update
-  update: async (req, res) => {
+update: async (req, res) => {
+    const { id } = req.params;
+    const { title, photo, desc, location, user_id, categories_id, address, open_time, close_time } = req.body;
+
     try {
-      const { id } = req.params;
-      const { title, photo, desc, location, user_id, categories_id } = req.body;
-      const updatedBlog = await Blog.update(
-        {
-          title: title,
-          photos: photo,
-          description: desc,
-          location_id: location,
-          user_id: user_id,
-          categories_id: categories_id,
-          address: address,
-          open_time: open_time,
-          close_time: close_time,
-        },
-        {
-          where: { id: id },
-          returning: true,
-          plain: true,
+        // Fetch existing blog data
+        const existingBlog = await Blog.findOne({ where: { id: id } });
+        if (!existingBlog) {
+            return res.status(404).json({ message: "Blog not found" });
         }
-      );
-      console.log("Blog updated:", updatedBlog[1]);
-      return res.status(200).json(updatedBlog[1]);
+
+        // Create an object for the update
+        const updatedData = {
+            title: title !== undefined ? title : existingBlog.title,
+            photos: req.file ? "uploads/"+req.file.filename : existingBlog.photos, // Use the filename from multer
+            description: desc !== undefined ? desc : existingBlog.description,
+            location_id: location !== undefined ? location : existingBlog.location_id,
+            user_id: user_id !== undefined ? user_id : existingBlog.user_id,
+            categories_id: categories_id !== undefined ? categories_id : existingBlog.categories_id,
+            address: address !== undefined ? address : existingBlog.address,
+            open_time: open_time !== undefined ? open_time : existingBlog.open_time,
+            close_time: close_time !== undefined ? close_time : existingBlog.close_time,
+        };
+
+        // Perform the update
+        const result = await Blog.update(updatedData, {
+            where: { id: id },
+        });
+
+        if (result[0] === 0) {
+            return console.log("No blog found to update");
+        }
+        res.status(200).json(updatedData); // Return the updated blog
+        console.log("Blog updated successfully");
     } catch (err) {
-      console.error("Error updating Blog:", err.stack);
-      return res.status(500).json({ error: "Error updating blog" });
+        console.error(err.message);
+        res.status(500).send("Server Error");
     }
-  },
+},
 
   // delete
   delete: async (req, res) => {
@@ -78,54 +92,55 @@ const blogController = {
   },
 
   //retrive all
-  get10Blogs: async (req, res) => {
-  
+  getAllBlogs: async (req, res) => {
     try {
-      const page = parseInt(req.query.page) || 1; // Get the page number from query params (default: 1)
-      const limit = 10; // Number of blogs per page
-      const offset = (page - 1) * limit; // Calculate offset
-
       const blogs = await Blog.findAll({
-        order: [["createdAt", "DESC"]], // Sort by newest blogs first
-        limit,
-        offset, // Skip the previous pages
+        include: [
+          {
+            model: User,
+            attributes: ["id", "username", "email", "profile"], // Include specific user fields
+          },
+        ],
       });
-
-      return res.status(200).json(blogs);
+      return res.status(200).json(blogs); // Send the list of blogs as a response
     } catch (err) {
-      console.error("Error fetching Blogs:", err.stack);
-      return res.status(500).json({ error: "Error fetching blogs" });
+      console.error("Error fetching all Blogs:", err.stack);
+      return res.status(500).json({ error: "Error fetching blogs" }); // Send error response
     }
   },
-    //retrive all (self profile view)
-    get10BlogsSelf: async (req, res) => {
+  //retrive all (self profile view)
+  getAllBlogsSelf: async (req, res) => {
+    try {
       const user_id = req.params.id;
-      try {
-        const page = parseInt(req.query.page) || 1; // Get the page number from query params (default: 1)
-        const limit = 10; // Number of blogs per page
-        const offset = (page - 1) * limit; // Calculate offset
-  
-        const blogs = await Blog.findAll({
-          order: [["createdAt", "DESC"]], // Sort by newest blogs first
-          limit,
-          offset, // Skip the previous pages
-        },
-      {where:{
-        user_id:user_id;
-      }});
-  
-        return res.status(200).json(blogs);
-      } catch (err) {
-        console.error("Error fetching Blogs:", err.stack);
-        return res.status(500).json({ error: "Error fetching blogs" });
-      }
-    },
+      const blogs = await Blog.findAll({
+        where: { user_id: user_id },
+        include: [
+          {
+            model: User,
+            attributes: ["id", "username", "email", "profile"], // Include specific user fields
+          },
+
+        ],
+      });
+      return res.status(200).json(blogs); // Send the list of blogs as a response
+    } catch (err) {
+      console.error("Error fetching all Blogs:", err.stack);
+      return res.status(500).json({ error: "Error fetching blogs" }); // Send error response
+    }
+  },
 
   // retrive by id
   getBlogsById: async (req, res) => {
     try {
       const { id } = req.params;
-      const blog = await Blog.findByPk(id);
+      const blog = await Blog.findByPk(id, {
+        include: [
+          {
+            model: User,
+            attributes: ["id", "username", "email"], // Include specific user fields
+          },
+        ],
+      });
       if (!blog) {
         return res.status(404).json({ error: "Blog not found" }); // Send not found response
       }

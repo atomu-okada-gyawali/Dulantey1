@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 function SignUp() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const [apiError, setApiError] = useState(null);
 
 
   const onSubmit = async (data) => {
@@ -30,7 +31,8 @@ function SignUp() {
       navigate("/login");
     } catch (error) {
       console.error("Error registering user:", error);
-      toast.error("Error signing up")
+      setApiError(error.response?.data?.message || "Error signing up");
+      toast.error("Error signing up");
     }
   };
 

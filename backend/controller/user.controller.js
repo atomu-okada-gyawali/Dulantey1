@@ -84,25 +84,33 @@ const UserController = {
   updateUser: async (req, res) => {
     const { password, full_name, email, username, photo } = req.body;
     const { id } = req.params;
+  
     try {
-      const result = await User.update(
-        {
-          full_name: full_name,
-          email: email,
-          password: password,
-          username: username,
-          profile: photo,
-        },
-        {
-          where: {
-            id: id,
-          },
-        }
-      );
+      // Fetch existing user data
+      const existingUser = await User.findOne({ where: { id: id } });
+      if (!existingUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      // Create an object for the update
+      const updatedData = {
+        full_name: full_name !== undefined ? full_name : existingUser.full_name,
+        email: email !== undefined ? email : existingUser.email,
+        password: password !== undefined ? password : existingUser.password,
+        username: username !== undefined ? username : existingUser.username,
+        profile: req.file ? req.file.filename : existingUser.profile, // Use the filename from multer
+      };
+      
+
+  
+      // Perform the update
+      const result = await User.update(updatedData, {
+        where: { id: id },
+      });
+  
       if (result[0] === 0) {
         return console.log("No user found to update");
       }
-      res.status(201).json(result); // Return the created user
+      res.status(201).json(result); // Return the updated user
       console.log("User updated successfully");
     } catch (err) {
       console.error(err.message);
@@ -127,6 +135,37 @@ const UserController = {
       res.status(500).send("Server Error");
     }
   },
+  registerUsers: async (req, res) => {
+    try {
+        const users = [
+            { fullname: "Alice Johnson", email: "alice@example.com", username: "alicej", password: "password123" },
+            { fullname: "Bob Smith", email: "bob@example.com", username: "bobsmith", password: "password123" },
+            { fullname: "Charlie Brown", email: "charlie@example.com", username: "charlieb", password: "password123" },
+            { fullname: "David Lee", email: "david@example.com", username: "davidl", password: "password123" },
+            { fullname: "Emma Watson", email: "emma@example.com", username: "emmaw", password: "password123" },
+            { fullname: "Frank Ocean", email: "frank@example.com", username: "franko", password: "password123" },
+            { fullname: "Grace Kelly", email: "grace@example.com", username: "gracek", password: "password123" },
+            { fullname: "Henry Ford", email: "henry@example.com", username: "henryf", password: "password123" },
+            { fullname: "Isla Fisher", email: "isla@example.com", username: "isla", password: "password123" },
+            { fullname: "Jack White", email: "jack@example.com", username: "jackw", password: "password123" }
+        ];
+
+        const hashedUsers = await Promise.all(users.map(async (user) => ({
+            fullname: user.fullname,
+            email: user.email,
+            username: user.username,
+            password: await bcrypt.hash(user.password, 10)
+        })));
+
+        const newUsers = await User.bulkCreate(hashedUsers);
+        console.log("Users registered successfully:", newUsers);
+        return res.status(201).json({ message: "Users registered successfully", users: newUsers });
+    } catch (err) {
+        console.error("Error registering users:", err.message);
+        return res.status(500).json({ error: "Server Error" });
+    }
+}
 };
+
 
 export default UserController; // Correct export statement

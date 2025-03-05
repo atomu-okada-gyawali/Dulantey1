@@ -2,12 +2,11 @@ import express, { json } from "express";
 import cors from "cors";
 import { config } from "dotenv";
 import { syncDatabase } from "./model/index.js";
+import path from "path";
 config();
 
 import userRoutes from "./routes/user.routes.js";
 import errorHandler from "./middleware/errorHandler.js";
-// import categoriesRoutes from "./routes/categories.routes.js"; // Import categories routes
-// import locationRoutes from "./routes/location.routes.js"; // Import location routes
 import blogRoutes from "./routes/blogs.routes.js";
 import reviewRoutes from "./routes/review.routes.js";
 import commentRoutes from "./routes/comment.routes.js";
@@ -23,9 +22,13 @@ import authenticateToken from "./middleware/token-middleware.js";
 const app = express();
 const PORT = 5000;
 
+const __dirname = path.resolve(); // Get the current directory
+
+
+
 // Middleware
 app.use(cors({
-    origin: "http://localhost:5173", // or whatever port your frontend is running on
+    origin: ["http://localhost:5173", "http://localhost:5174"], // allow both frontend ports
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -116,7 +119,7 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/file", uploadRoutes);
-
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Error Handling Middleware
 app.use(errorHandler);
